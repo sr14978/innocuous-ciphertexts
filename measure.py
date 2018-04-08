@@ -1,32 +1,38 @@
+#!/usr/bin/python3
+
 import collect as col
 import calculate as calc
 import argparse
 import os
 
-def test():
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-s', '--size', default="100")
-	parser.add_argument('-f', '--folder', default="fakes")
-	args = vars(parser.parse_args())
+def test(size, folder, index=None):
+	
+	path = size + "/" + folder + "/"
 
-	path = args["size"] + "/" + args["folder"] + "/"
+	if index == None:
+		index = 1
+		while os.path.exists(path + str(index)):
+			index += 1
 
-	index = 1
-	while os.path.exists(path + str(index)):
-		index += 1
+		col.main(True, path + str(index))
 
-	col.main(True, path + str(index))
-
-	with open(args["size"] + "/threshold", "r") as f:
+	with open(size + "/threshold", "r") as f:
 		threshold = float(f.readline())
 
 	val = calc.test(
 		path + str(index),
-		args["size"] + "/reference_bins"
+		size + "/reference_bins"
 	)
 
 	return val > threshold
 
 
 if __name__ == "__main__":
-  print("Fake" if test() else "Normal")
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-s', '--size', default="100")
+	parser.add_argument('-f', '--folder', default="fakes")
+	parser.add_argument('-i', '--index', default=None)
+	args = vars(parser.parse_args())
+	result = test(args["size"], args["folder"], args["index"])
+	print("Fake" if result else "Normal")

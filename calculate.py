@@ -1,29 +1,23 @@
+#!/usr/bin/python3
+
 from scipy.stats import chisquare
-import arguments as args
+import argparse
 import pickle
 
 
-def test(test_file=None, reference_file=None):
-
-	args.setup_argument(0, "test", "test_urls")
-	args.setup_argument(1, "reference", "100/reference_bins")
-
-	if test_file == None:
-		test_file = args.args["test"]
-	if reference_file == None:
-		reference_file = args.args["reference"]
+def test(test_file, reference_file):
 
 	with open(test_file, "rb") as f:
-	  urls = pickle.load(f)
+		urls = pickle.load(f)
 
 	test = [0] * 256
 
 	for url in urls:
-	  for chr in url:
-	    test[ord(chr)] += 1
+		for chr in url:
+			test[ord(chr)] += 1
 
 	with open(reference_file, "rb") as f:
-	  reference = pickle.load(f)
+		reference = pickle.load(f)
 
 	paired = zip(test, reference)
 	filtered = [(a,b) for a,b in paired if b != 0]
@@ -32,4 +26,8 @@ def test(test_file=None, reference_file=None):
 	return chisquare(test, reference).statistic
 
 if __name__ == "__main__":
-	print(test())
+	parser = argparse.ArgumentParser()
+	parser.add_argument('test', default="test_urls")
+	parser.add_argument('reference', default="100/reference_bins")
+	args = vars(parser.parse_args())
+	print(test(args["test"], args["reference"]))
