@@ -1,0 +1,12 @@
+    477 81.563495      192.168.0.7           23.212.234.37         HTTP     271    GET /singletile/summary/alias/experiencebyname/today?market=en-GB&source=appxmanifest&tenant=amp&vertical=sports HTTP/1.1 
+    GET /singletile/summary/alias/experiencebyname/today?market=en-GB&source=appxmanifest&tenant=amp&vertical=sports HTTP/1.1\r\n
+   2318 162.999273     192.168.0.7           95.101.128.138        HTTP     186    GET /home/index.html HTTP/1.1 
+    GET /home/index.html HTTP/1.1\r\n
+   6532 180.628190     192.168.0.7           82.20.175.187         HTTP     193    GET /en-gb HTTP/1.1 
+    GET /en-gb HTTP/1.1\r\n
+   9284 198.564717     192.168.0.7           204.79.197.203        HTTP     489    GET /en-gb/ HTTP/1.1 
+    GET /en-gb/ HTTP/1.1\r\n
+  11542 210.532877     192.168.0.7           118.191.216.57        HTTP     176    GET /?rfrom=soso HTTP/1.1 
+    GET /?rfrom=soso HTTP/1.1\r\n
+  13777 225.310506     192.168.0.7           151.101.192.194       HTTP     236    GET /fandom HTTP/1.1 
+    GET /fandom HTTP/1.1\r\n
