@@ -34,5 +34,6 @@ if __name__ == "__main__":
 	parser.add_argument('-f', '--folder', default="fakes")
 	parser.add_argument('-i', '--index', default=None)
 	args = vars(parser.parse_args())
+	
 	result = test(args["size"], args["folder"], args["index"])
 	print("Fake" if result else "Normal")

@@ -3,18 +3,11 @@
 from scipy.stats import chisquare
 import argparse
 import pickle
-
+import bins
 
 def test(test_file, reference_file):
 
-	with open(test_file, "rb") as f:
-		urls = pickle.load(f)
-
-	test = [0] * 256
-
-	for url in urls:
-		for chr in url:
-			test[ord(chr)] += 1
+	test = bins.sort(test_file)
 
 	with open(reference_file, "rb") as f:
 		reference = pickle.load(f)
