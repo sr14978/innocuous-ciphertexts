@@ -1,6 +1,13 @@
+#!/usr/bin/python3
+
 import numpy as np
 import math
 import calculate as calc
+import bins
+import argparse
+import functools as ft
+import os
+import matplotlib.pyplot as plt
 
 class distrobution():
 	mu = 0
@@ -21,16 +28,28 @@ def solve_for_x(a,b,c):
 	else:
 		return ( ((-b) + math.sqrt(test) ) / (2*a), ((-b) - math.sqrt(test) ) / (2*a) )
 
-def go():
-	fake_paths = [ "100/fakes/" + str(x) for x in range(1,4) ]
-	normal_paths = [ "100/normals/" + str(x) for x in range(1,4) ]
-	fakes = [calc.test(p) for p in fake_paths]
-	normals = [calc.test(p) for p in normal_paths]
-	fakes_dist = distrobution(np.mean(fakes), np.var(fakes))
-	normals_dist = distrobution(np.mean(normals), np.var(normals))
+def go(size=100, mode=bins.default_mode):
+	
+	base_path = os.path.dirname(os.path.abspath(__file__))
+	fake_path = base_path + "/" + str(size) + "/fakes/"
+	normal_path = base_path + "/" + str(size) + "/normals/"
+	fake_paths = [fake_path + p for p in os.listdir(fake_path) if p != "results"]
+	normal_paths = [
+		normal_path + p for p in os.listdir(normal_path) if p != "results"]
+	test = ft.partial(
+		calc.test,
+		reference_file=size + "/reference_" + mode + "_bins",
+		mode=mode
+	)
+	fakes = [test(p) for p in fake_paths]
+	normals = [test(p) for p in normal_paths]
+	plt.plot(fakes, 'ro', normals, 'go')
+	plt.show()
+	
+	fakes_dist = distrobution(np.mean(fakes), np.var(fakes, ddof=1))
+	normals_dist = distrobution(np.mean(normals), np.var(normals, ddof=1))
 	coeffs = get_func(fakes_dist, normals_dist)
 	solutions = solve_for_x(*coeffs)
-
 	if solutions == None:
 		return None
 	if type(solutions) == float:
@@ -45,4 +64,14 @@ def go():
 			return None
 
 if __name__ == "__main__":
-	print(go())
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-s', '--size', default="100")
+	parser.add_argument('-m', '--mode',
+		choices=bins.modes.values(), default=bins.default_mode)
+	args = vars(parser.parse_args())
+
+	with open(args["size"] + "/threshold_" + args["mode"], "w") as f:
+		f.write(str(go(args["size"], args["mode"])))
+
+
