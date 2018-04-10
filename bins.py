@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 
+
+
 import argparse
 import pickle
+import random
 
 modes = {
 	'CHARACTER_DISTROBUTION':'char',
 	'SLASHES_FREQUENCY':'slash',
 	'INTER_SLASH_DIST':'length',
-	'FIRST_LETTER':'first'
+	'FIRST_LETTER':'first',
+	'RANDOM_LETTER':'rand',
 }
 
 default_mode = modes['CHARACTER_DISTROBUTION']
@@ -68,6 +72,18 @@ def sort(filename_in, mode=default_mode):
 			bins[ord(line[0])] += 1
 		
 		return bins[30:130]
+
+	elif mode == modes['RANDOM_LETTER']:
+
+		bins = [0] * 256
+		with open(filename_in, "rb") as f:
+			lines = pickle.load(f)
+		
+		for line in lines:
+			bins[ord(line[random.randrange(len(line))])] += 1
+		
+		return bins[30:130]
+
 
 if __name__ == "__main__":
 
