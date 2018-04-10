@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+description = """
+Program to collect a list of paths from clear http requests and calculate the distance to reference distrobution.
+"""
+
 import collect as col
 import calculate as calc
 import bins
@@ -31,7 +35,7 @@ def test(size, folder, index=None, mode=bins.default_mode):
 
 if __name__ == "__main__":
 
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('-s', '--size', default="100")
 	parser.add_argument('-f', '--folder', default="fakes")
 	parser.add_argument('-i', '--index', default=None)

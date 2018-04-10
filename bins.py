@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
-
+description = """
+Program to create a distrobution historgram from a list of paths
+"""
 
 import argparse
 import pickle
@@ -87,7 +89,7 @@ def sort(filename_in, mode=default_mode):
 
 if __name__ == "__main__":
 
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('-i', '--in', default="100/reference_urls")
 	parser.add_argument('-o', '--out', default="100/reference_char_bins")
 	parser.add_argument('-m', '--mode',

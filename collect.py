@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+description = """
+Program to collect a list of paths from clear http requests
+"""
+
 import pyshark
 import pickle
 from scipy.stats import chisquare
@@ -35,7 +39,7 @@ def main(reset, output_file):
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('reset', nargs='?', default=False)
 	parser.add_argument('-o', '--output', default="test_urls")
 	args = vars(parser.parse_args())

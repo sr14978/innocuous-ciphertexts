@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+description = """
+Program to calculate the decision threshold between two distrobtions
+"""
+
 import numpy as np
 import math
 import calculate as calc
@@ -65,7 +69,7 @@ def go(size=100, mode=bins.default_mode):
 
 if __name__ == "__main__":
 
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('-s', '--size', default="100")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)

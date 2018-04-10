@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+description = """
+Program to calculate the distance between a test distrobution and a reference distrobution.
+"""
+
 from scipy.stats import chisquare
 import argparse
 import pickle
@@ -22,7 +26,7 @@ def test(test_file, reference_file, mode=bins.default_mode):
 	return v
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser()
+	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('test', default="test_urls")
 	parser.add_argument('reference', default="100/reference_bins")
 	parser.add_argument('-m', '--mode',
