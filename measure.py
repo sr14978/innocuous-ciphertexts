@@ -2,10 +2,11 @@
 
 import collect as col
 import calculate as calc
+import bins
 import argparse
 import os
 
-def test(size, folder, index=None):
+def test(size, folder, index=None, mode=bins.default_mode):
 	
 	path = size + "/" + folder + "/"
 
@@ -16,12 +17,13 @@ def test(size, folder, index=None):
 
 		col.main(True, path + str(index))
 
-	with open(size + "/threshold", "r") as f:
+	with open(size + "/threshold_" + mode, "r") as f:
 		threshold = float(f.readline())
 
 	val = calc.test(
 		path + str(index),
-		size + "/reference_bins"
+		size + "/reference_" + mode + "_bins",
+		mode
 	)
 
 	return val > threshold
@@ -33,6 +35,8 @@ if __name__ == "__main__":
 	parser.add_argument('-s', '--size', default="100")
 	parser.add_argument('-f', '--folder', default="fakes")
 	parser.add_argument('-i', '--index', default=None)
+	parser.add_argument('-m', '--mode',
+		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
 	
 	result = test(args["size"], args["folder"], args["index"])

@@ -5,22 +5,27 @@ import argparse
 import pickle
 import bins
 
-def test(test_file, reference_file):
+def test(test_file, reference_file, mode=bins.default_mode):
 
-	test = bins.sort(test_file)
+	test = bins.sort(test_file, mode)
 
 	with open(reference_file, "rb") as f:
 		reference = pickle.load(f)
 
-	paired = zip(test, reference)
-	filtered = [(a,b) for a,b in paired if b != 0]
-	test, reference = zip(*filtered)
-
-	return chisquare(test, reference).statistic
+	# paired = zip(test, reference)
+	# filtered = [(a,b) for a,b in paired if b != 0]
+	# test, reference = zip(*filtered)
+	
+	# Fisher's exact test
+	
+	v = chisquare(test, reference).statistic
+	return v
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('test', default="test_urls")
 	parser.add_argument('reference', default="100/reference_bins")
+	parser.add_argument('-m', '--mode',
+		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
 	print(test(args["test"], args["reference"]))
