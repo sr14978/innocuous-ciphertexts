@@ -9,9 +9,9 @@ import pickle
 from scipy.stats import chisquare
 import argparse
 
-def main(reset, output_file):
+def main(reset_flag, output_file):
 
-	if reset:
+	if reset_flag:
 		with open(output_file, "wb") as f:
 			pickle.dump([], f)
 
@@ -40,7 +40,7 @@ def main(reset, output_file):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=description)
-	parser.add_argument('reset', nargs='?', default=False)
+	parser.add_argument('-r', '--reset', action='store_true')
 	parser.add_argument('-o', '--output', default="test_urls")
 	args = vars(parser.parse_args())
 
