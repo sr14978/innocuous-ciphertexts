@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 description = """
 Program to collect a list of paths from clear http requests and calculate the distance to reference distrobution.

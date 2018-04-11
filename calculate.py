@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 description = """
 Program to calculate the distance between a test distrobution and a reference distrobution.

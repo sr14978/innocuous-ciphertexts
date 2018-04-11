@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 description = """
 Program to calculate the decision threshold between two distrobtions

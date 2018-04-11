@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 description = """
 Program to collect a list of paths from clear http requests
@@ -10,7 +10,7 @@ from scipy.stats import chisquare
 import argparse
 
 def main(reset_flag, output_file):
-
+		
 	if reset_flag:
 		with open(output_file, "wb") as f:
 			pickle.dump([], f)
@@ -25,7 +25,7 @@ def main(reset_flag, output_file):
 	steps = 20
 	jump = sample_size/steps
 	for i in range(steps):
-		print("read %i samples"%(i*jump), flush=True)
+		print("read %i samples"%(i*jump))
 		capture.sniff(packet_count=jump)
 		urls = [p.http.get_field_value("request_uri")[1:] for p in capture]
 		with open(output_file, "rb") as f:

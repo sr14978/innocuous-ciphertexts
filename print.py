@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
+
 import pickle
 import sys
 with open(sys.argv[1], "rb") as f:

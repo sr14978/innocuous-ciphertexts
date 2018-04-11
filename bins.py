@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
 
 description = """
 Program to create a distrobution historgram from a list of paths
@@ -25,12 +25,14 @@ def sort_smoothed(filename_in, mode):
 	return bins
 
 def sort(filename_in, mode=default_mode):
+
+	with open(filename_in, "rb") as f:
+	#	lines = pickle.load(f)
+		lines = f.readlines()	
+
 	if mode == modes['CHARACTER_DISTROBUTION']:
 
 		bins = [0] * 256
-		with open(filename_in, "rb") as f:
-			lines = pickle.load(f)
-
 		for line in lines:
 			for chr in line:
 				bins[ord(chr)] += 1
@@ -39,9 +41,6 @@ def sort(filename_in, mode=default_mode):
 	elif mode == modes['SLASHES_FREQUENCY']:
 
 		bins = [0] * 2
-		with open(filename_in, "rb") as f:
-			lines = pickle.load(f)
-
 		for line in lines:
 			for chr in line:
 				bins[1 if chr == '/' else 0] += 1
@@ -49,14 +48,14 @@ def sort(filename_in, mode=default_mode):
 		
 	elif mode == modes['INTER_SLASH_DIST']:
 
-		bins = [0] * 256
-		with open(filename_in, "rb") as f:
-			lines = pickle.load(f)
-		
+		bins = [0] * 1024
 		for line in lines:
 			length = 0
 			for chr in line:
 				if chr == '/':
+					if length > len(bins):
+						print(length)
+						print(filename_in)	
 					bins[length] += 1
 					length = 0
 				else:
@@ -67,9 +66,6 @@ def sort(filename_in, mode=default_mode):
 	elif mode == modes['FIRST_LETTER']:
 
 		bins = [0] * 256
-		with open(filename_in, "rb") as f:
-			lines = pickle.load(f)
-		
 		for line in lines:
 			bins[ord(line[0])] += 1
 		
@@ -78,9 +74,6 @@ def sort(filename_in, mode=default_mode):
 	elif mode == modes['RANDOM_LETTER']:
 
 		bins = [0] * 256
-		with open(filename_in, "rb") as f:
-			lines = pickle.load(f)
-		
 		for line in lines:
 			bins[ord(line[random.randrange(len(line))])] += 1
 		
