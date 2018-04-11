@@ -1,0 +1,16 @@
+install tyshark via packet manager
+
+install gmp via website
+./configure
+make
+make check
+make install
+
+install libffi via website
+./configure
+sudo make install
+
+install matplotlib
+sudo apt-get install python-matplotlib
+
+python install requirements

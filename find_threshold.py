@@ -45,6 +45,7 @@ def go(size=100, mode=bins.default_mode):
 		reference_file=size + "/reference_" + mode + "_bins",
 		mode=mode
 	)
+
 	fakes = [test(p) for p in fake_paths]
 	normals = [test(p) for p in normal_paths]
 	plt.plot(fakes, 'ro', normals, 'go')

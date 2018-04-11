@@ -27,8 +27,7 @@ def sort_smoothed(filename_in, mode):
 def sort(filename_in, mode=default_mode):
 
 	with open(filename_in, "rb") as f:
-	#	lines = pickle.load(f)
-		lines = f.readlines()	
+		lines = pickle.load(f)
 
 	if mode == modes['CHARACTER_DISTROBUTION']:
 
