@@ -27,30 +27,30 @@ def sort_smoothed(filename_in, mode):
 def sort(filename_in, mode=default_mode):
 
 	with open(filename_in, "rb") as f:
-		lines = pickle.load(f)
+		urls = pickle.load(f)
 
 	if mode == modes['CHARACTER_DISTROBUTION']:
 
 		bins = [0] * 256
-		for line in lines:
-			for chr in line:
+		for url in urls:
+			for chr in url:
 				bins[ord(chr)] += 1
 		return bins[30:130]
 
 	elif mode == modes['SLASHES_FREQUENCY']:
 
 		bins = [0] * 2
-		for line in lines:
-			for chr in line:
+		for url in urls:
+			for chr in url:
 				bins[1 if chr == '/' else 0] += 1
 		return bins
 		
 	elif mode == modes['INTER_SLASH_DIST']:
 
 		bins = [0] * 1024
-		for line in lines:
+		for url in urls:
 			length = 0
-			for chr in line:
+			for chr in url:
 				if chr == '/':
 					if length > len(bins):
 						print(length)
@@ -65,16 +65,16 @@ def sort(filename_in, mode=default_mode):
 	elif mode == modes['FIRST_LETTER']:
 
 		bins = [0] * 256
-		for line in lines:
-			bins[ord(line[0])] += 1
+		for url in urls:
+			bins[ord(url[0])] += 1
 		
 		return bins[30:130]
 
 	elif mode == modes['RANDOM_LETTER']:
 
 		bins = [0] * 256
-		for line in lines:
-			bins[ord(line[random.randrange(len(line))])] += 1
+		for url in urls:
+			bins[ord(url[random.randrange(len(line))])] += 1
 		
 		return bins[30:130]
 
