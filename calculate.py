@@ -9,9 +9,15 @@ import argparse
 import pickle
 import bins
 
-def test(test_file, reference_file, mode=bins.default_mode):
+def test_file(test_file, reference_file, mode=bins.default_mode):
+	with open(test_file, "rb") as f:
+		urls = pickle.load(f)
+	
+	return test(urls, reference_file, mode)
 
-	test = bins.sort(test_file, mode)
+def test(urls, reference_file, mode=bins.default_mode):
+
+	test = bins.sort(urls, mode)
 
 	with open(reference_file, "rb") as f:
 		reference = pickle.load(f)
@@ -32,4 +38,4 @@ if __name__ == "__main__":
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
-	print(test(args["test"], args["reference"]))
+	print(test_file(args["test"], args["reference"]))

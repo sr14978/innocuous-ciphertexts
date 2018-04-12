@@ -9,6 +9,7 @@ import calculate as calc
 import bins
 import argparse
 import os
+import pickle
 
 def test(size, folder, index=None, mode=bins.default_mode):
 	
@@ -21,17 +22,22 @@ def test(size, folder, index=None, mode=bins.default_mode):
 
 		col.main(True, path + str(index))
 
+	with open(path + str(index), "rb") as f:
+		urls = pickle.load(f)
+
+	return test_raw(urls, size, mode)
+
+def test_raw(urls, size, mode=bins.default_mode):
 	with open(size + "/threshold_" + mode, "r") as f:
 		threshold = float(f.readline())
-
+		
 	val = calc.test(
-		path + str(index),
+		urls,
 		size + "/reference_" + mode + "_bins",
 		mode
 	)
-
+	
 	return val > threshold
-
 
 if __name__ == "__main__":
 

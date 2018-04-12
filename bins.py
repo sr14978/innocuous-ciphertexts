@@ -18,16 +18,18 @@ modes = {
 
 default_mode = modes['CHARACTER_DISTROBUTION']
 
-def sort_smoothed(filename_in, mode):
-	bins = sort(filename_in, mode)
-	if any([i==0 for i in bins]):
-		bins = [i+1 for i in bins]
-	return bins
-
-def sort(filename_in, mode=default_mode):
+def sort_file(filename_in, mode, smoothed=True):
 
 	with open(filename_in, "rb") as f:
 		urls = pickle.load(f)
+	
+	bins = sort(urls, mode, smoothed)
+	if smoothed:
+		if any([i==0 for i in bins]):
+			bins = [i+1 for i in bins]
+	return bins
+
+def sort(urls, mode=default_mode, smoothed=True):
 
 	if mode == modes['CHARACTER_DISTROBUTION']:
 
@@ -88,12 +90,8 @@ if __name__ == "__main__":
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-ns', '--nosmooth', action='store_true')
 	args = vars(parser.parse_args())
-	
-	if args["nosmooth"]:
-		go = sort
-	else: 
-		go = sort_smoothed
-		
+			
 	with open(args["out"], "wb") as f:
-		pickle.dump(go(args["in"], args["mode"]), f)
+		bins = sort_file(args["in"], args["mode"], args["nosmooth"])
+		pickle.dump(bins, f)
 

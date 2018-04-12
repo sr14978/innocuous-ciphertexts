@@ -41,7 +41,7 @@ def go(size=100, mode=bins.default_mode):
 	normal_paths = [
 		normal_path + p for p in os.listdir(normal_path) if p != "results"]
 	test = ft.partial(
-		calc.test,
+		calc.test_file,
 		reference_file=size + "/reference_" + mode + "_bins",
 		mode=mode
 	)
