@@ -1,5 +1,0 @@
-
-cat 0-orig | grep "GET /" > 1-gets
-cat 1-gets | grep -v "GET / " > 2-non_empty
-cat 2-non_empty | awk '{print $2}' > 3-paths
-cat 3-paths | awk '{print substr($0,2)}' > 4-no_slash
