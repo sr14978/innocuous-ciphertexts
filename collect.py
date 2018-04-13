@@ -10,7 +10,10 @@ from scipy.stats import chisquare
 import argparse
 
 def main(output_file, sample_size=100, continue_flag=False):
-		
+
+	if type(sample_size) == str:
+		sample_size = int(sample_size)
+
 	if not continue_flag:
 		with open(output_file, "wb") as f:
 			pickle.dump([], f)
