@@ -1,3 +1,2 @@
 pyshark
 scipy
-fte

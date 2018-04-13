@@ -47,10 +47,10 @@ if __name__ == "__main__":
 	parser.add_argument('-o', '--out', default="100/emulated/char/1")
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
-	parser.add_argument('-nu', '--nouse', action='store_true')
+	parser.add_argument('-nu', '--no_use', action='store_true')
 	args = vars(parser.parse_args())
 	
-	if args["nouse"]:
+	if args["no_use"]:
 		init_emulator(mode=args["mode"])
 	else:
 		urls = get_emulations(mode=args["mode"])

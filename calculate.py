@@ -34,7 +34,7 @@ def test(urls, reference_file, mode=bins.default_mode):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=description)
 	parser.add_argument('test', default="test_urls")
-	parser.add_argument('reference', default="100/reference_bins")
+	parser.add_argument('reference', default="100/reference_char_bins")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())

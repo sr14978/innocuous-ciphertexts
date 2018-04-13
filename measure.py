@@ -20,7 +20,7 @@ def test(size, folder, index=None, mode=bins.default_mode):
 		while os.path.exists(path + str(index)):
 			index += 1
 
-		col.main(True, path + str(index))
+		col.main(path + str(index), size=size)
 
 	with open(path + str(index), "rb") as f:
 		urls = pickle.load(f)
@@ -28,12 +28,12 @@ def test(size, folder, index=None, mode=bins.default_mode):
 	return test_raw(urls, size, mode)
 
 def test_raw(urls, size, mode=bins.default_mode):
-	with open(size + "/threshold_" + mode, "r") as f:
+	with open(str(size) + "/threshold_" + mode, "r") as f:
 		threshold = float(f.readline())
 		
 	val = calc.test(
 		urls,
-		size + "/reference_" + mode + "_bins",
+		str(size) + "/reference_" + mode + "_bins",
 		mode
 	)
 	

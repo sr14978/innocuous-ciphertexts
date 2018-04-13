@@ -18,6 +18,7 @@ modes = {
 
 default_mode = modes['CHARACTER_DISTROBUTION']
 
+"""calculates freuqency bins from urls in `filename`"""
 def sort_file(filename_in, mode, smoothed=True):
 
 	with open(filename_in, "rb") as f:
@@ -29,6 +30,7 @@ def sort_file(filename_in, mode, smoothed=True):
 			bins = [i+1 for i in bins]
 	return bins
 
+"""calculates freuqency bins from `urls`"""
 def sort(urls, mode=default_mode, smoothed=True):
 
 	if mode == modes['CHARACTER_DISTROBUTION']:

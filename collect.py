@@ -9,9 +9,9 @@ import pickle
 from scipy.stats import chisquare
 import argparse
 
-def main(reset_flag, output_file):
+def main(output_file, sample_size=100, continue_flag=False):
 		
-	if reset_flag:
+	if not continue_flag:
 		with open(output_file, "wb") as f:
 			pickle.dump([], f)
 
@@ -21,7 +21,6 @@ def main(reset_flag, output_file):
 						"GET" && http.request.uri != "/"'
 	)
 
-	sample_size = 100
 	steps = 20
 	jump = sample_size/steps
 	for i in range(steps):
@@ -40,8 +39,9 @@ def main(reset_flag, output_file):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=description)
-	parser.add_argument('-r', '--reset', action='store_true')
+	parser.add_argument('-c', '--continue', action='store_true')
 	parser.add_argument('-o', '--output', default="test_urls")
+	parser.add_argument('-s', '--size', default=100)
 	args = vars(parser.parse_args())
 
-	main(args["reset"], args["output"])
+	main(args["output"], args["size"], args["continue"])

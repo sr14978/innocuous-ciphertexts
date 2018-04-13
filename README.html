@@ -1,0 +1,48 @@
+<h1 id="installation">INSTALLATION</h1>
+<ul>
+<li><p>ensure python2 is installed<br>python2 -V</p>
+</li>
+<li><p>install tshark via packet manager<br>sudo apt install tshark</p>
+</li>
+<li><p>install matplotlib via packet manager<br>sudo apt-get install python-matplotlib</p>
+</li>
+<li><p>use pip to install python requirements<br>pip2 install -r requirements</p>
+</li>
+</ul>
+<h1 id="usage">USAGE</h1>
+<ul>
+<li><p>You can collect some urls using the collect program<br>./collect.py --output &lt;output_filepath&gt; --size &lt;number_of_urls&gt;<br>eg ./collect.py --output 100/fakes/1 --size 100</p>
+<p>There are already examples stored in</p>
+<ul>
+<li>100/fakes/</li>
+<li>100/normals/</li>
+<li>100/emulated/</li>
+</ul>
+<p>and a reference list to test against at</p>
+<ul>
+<li>100/reference_urls</li>
+</ul>
+</li>
+<li><p>These can be viewed using the print program<br>./print.py &lt;filepath&gt;<br>eg ./print.py 100/reference_urls</p>
+</li>
+<li><p>A distrobution historgram can be computed with the bin program. You can choose one of the following methods:</p>
+<ul>
+<li>CHARACTER_DISTROBUTION:&#39;char&#39;</li>
+<li>SLASHES_FREQUENCY:&#39;slash&#39;</li>
+<li>INTER_SLASH_DIST:&#39;length&#39;</li>
+<li>FIRST_LETTER:&#39;first&#39;</li>
+<li>RANDOM_LETTER:&#39;rand&#39;</li>
+</ul>
+<p>./bins.py --input 100/reference_urls \<br>  --output 100/reference_&lt;method&gt;_bins \<br>  --mode &lt;method&gt;<br>eg ./bins.py --input 100/reference_urls \<br>  --output 100/reference_char_bins \<br>  --mode char</p>
+</li>
+<li><p>You can calculate the distance between given urls and a reference distrobution with the calculate program<br>./calculate &lt;url_test_file&gt; &lt;reference_bins&gt;<br>eg ./calculate 100/fake/1 100/reference_char_bins</p>
+</li>
+<li><p>A threshold can be found to differentiate the normal and fake distrobutions using the find threshold program<br>./find_threshold.py --mode &lt;binning_method&gt;<br>eg ./find_threshold.py --mode char</p>
+</li>
+<li><p>You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program<br>./measure.py --size &lt;number_of_urls&gt; --folder &lt;folder&gt; --index &lt;#&gt; --mode &lt;binning_method&gt;<br>eg ./measure.py --size 100 --folder fakes --index 1 --mode char</p>
+</li>
+<li><p>You can use the emulator program to produce url messages that emulate the reference distrobution<br>./emulate.py --output &lt;output_filepath&gt; --mode &lt;binning_method&gt;<br>./emulate.py --output 100/emulated/char/1 --mode char</p>
+</li>
+<li><p>You can also see how emulation is doing with the graph program<br>./graph.py --mode &lt;binning_method&gt;<br>./graph.py --mode char</p>
+</li>
+</ul>
