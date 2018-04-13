@@ -1,5 +1,9 @@
 #!/usr/bin/python2
 
+description = """
+Program to display the relation of normal, fake and emulated distrobutions to a reference distrobution.
+"""
+
 import numpy as np
 import math
 import calculate as calc

@@ -12,7 +12,7 @@ import bins
 def test_file(test_file, reference_file, mode=bins.default_mode):
 	with open(test_file, "rb") as f:
 		urls = pickle.load(f)
-	
+
 	return test(urls, reference_file, mode)
 
 def test(urls, reference_file, mode=bins.default_mode):
@@ -25,9 +25,9 @@ def test(urls, reference_file, mode=bins.default_mode):
 	# paired = zip(test, reference)
 	# filtered = [(a,b) for a,b in paired if b != 0]
 	# test, reference = zip(*filtered)
-	
+
 	# Fisher's exact test
-	
+
 	v = chisquare(test, reference).statistic
 	return v
 
