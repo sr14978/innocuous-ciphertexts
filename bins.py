@@ -92,6 +92,6 @@ if __name__ == "__main__":
 	args = vars(parser.parse_args())
 			
 	with open(args["out"], "wb") as f:
-		bins = sort_file(args["in"], args["mode"], args["nosmooth"])
+		bins = sort_file(args["in"], args["mode"], not args["nosmooth"])
 		pickle.dump(bins, f)
 

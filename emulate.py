@@ -21,16 +21,17 @@ def main(mode=modes['CHARACTER_DISTROBUTION']):
 		with open("100/reference_" + mode + "_bins", "rb") as f:
 			bins = pickle.load(f)
 			
-		bins = [0 if b == 1 else b for b in bins]
+		# bins = [0 if b == 1 else b for b in bins]
 		bins_total = sum(bins)
 		# base = number of distrobution divisions 
 		base = 10
 		division_width = float(bins_total) / base
-		distrobution_division_split_values = [0]
-		running_total = 0
+		distrobution_division_split_values = []
+		running_total = 0.0
 		for i in range(base):
-			running_total += division_width
 			distrobution_division_split_values.append(int(running_total))
+			running_total += division_width
+		distrobution_division_split_values.append(bins_total)
 				
 		message_length = 64*8
 		message_max = 1 << message_length
@@ -44,16 +45,16 @@ def main(mode=modes['CHARACTER_DISTROBUTION']):
 		base_powers = base_powers[:-1]
 				
 		running_total = 0
-		cumlative = []
+		cumlative = [0]
 		for bin in bins:
 			running_total += bin
 			cumlative.append(running_total)
-			
-		print cumlative
-		
+					
 		# plt.plot(cumlative)
 		# plt.show()
 		
+		# print distrobution_division_split_values
+		# print cumlative
 		
 		def encode(message):
 			digits = deque()
@@ -83,10 +84,10 @@ def lies_at_index_range(dist, value):
 	for i in range(len(dist)-1):
 		lower_bound = dist[i]
 		higher_bound = dist[i+1]
-		if value > lower_bound and value <= higher_bound:
+		if lower_bound <= value and value < higher_bound:
 			return i
 			
-	raise Exception("Vallue not from distrobution")
+	raise Exception("Value %i not from distrobution: %s"%(value, str(dist)))
 
 if __name__ == "__main__":
 
@@ -94,14 +95,18 @@ if __name__ == "__main__":
 	parser.add_argument('-o', '--out', default="100/emulated/1")
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
+	parser.add_argument('-nu', '--nouse', action='store_true')
 	args = vars(parser.parse_args())
 	
-	with open(args["out"], "wb") as f:
-		func = main(args["mode"])
+	func = main(args["mode"])
+	
+	if not args["nouse"]:
 		urls = []
 		for _ in range(100):
 			urls.append(func(random.getrandbits(64*8)))
-		pickle.dump(urls, f)
+
+		with open(args["out"], "wb") as f:
+			pickle.dump(urls, f)
 	
 	
 	
