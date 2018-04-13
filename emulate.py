@@ -44,7 +44,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=description)
-	parser.add_argument('-o', '--out', default="100/emulated/1")
+	parser.add_argument('-o', '--out', default="100/emulated/char/1")
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-nu', '--nouse', action='store_true')
