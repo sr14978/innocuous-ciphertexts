@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 
-description="""Program to show how emulation is doing compared to fake and normal urls
+description = """Program to display the relation of normal, fake and emulated distrobutions to a reference distrobution.
 """
 
 import numpy as np

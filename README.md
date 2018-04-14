@@ -6,9 +6,14 @@ python2 -V
 
 - install tshark via packet manager
 sudo apt install tshark
+select enable non-sudo capture, then add privledge to current user with
+sudo usermod -aG wireshark $USER 
 
 - install matplotlib via packet manager
 sudo apt-get install python-matplotlib
+
+- install python pip
+sudo apt install python-pip
 
 - use pip to install python requirements
 pip2 install -r requirements
@@ -39,16 +44,16 @@ eg ./print.py 100/reference_urls
   - FIRST_LETTER:'first'
   - RANDOM_LETTER:'rand'
 
-  ./bins.py --input 100/reference_urls \
-	--output 100/reference_<method>_bins \
+  ./bins.py --in 100/reference_urls \
+	--out 100/reference_<method>_bins \
 	--mode <method>
-  eg ./bins.py --input 100/reference_urls \
-	--output 100/reference_char_bins \
+  eg ./bins.py --in 100/reference_urls \
+	--out 100/reference_char_bins \
 	--mode char
 	
 - You can calculate the distance between given urls and a reference distrobution with the calculate program
 ./calculate.py <url_test_file> <reference_bins>
-eg ./calculate.py 100/fake/1 100/reference_char_bins
+eg ./calculate.py 100/fakes/1 100/reference_char_bins
 
 - A threshold can be found to differentiate the normal and fake distrobutions using the find threshold program
 ./find_threshold.py --mode <binning_method>
@@ -59,12 +64,12 @@ eg ./find_threshold.py --mode char
 eg ./measure.py --size 100 --folder fakes --index 1 --mode char
 
 - You can use the emulator program to produce url messages that emulate the reference distrobution
-./emulate.py --output <output_filepath> --mode <binning_method>
-./emulate.py --output 100/emulated/char/1 --mode char
+./emulate.py --out <output_filepath> --mode <binning_method>
+eg ./emulate.py --out 100/emulated/char/1 --mode char
 
 - You can also see how emulation is doing with the graph program
 ./graph.py --mode <binning_method>
-./graph.py --mode char
+eg ./graph.py --mode char
 
 - You can test the emulation using the test emulator program
 ./test_emulator.py --mode <binning_method>

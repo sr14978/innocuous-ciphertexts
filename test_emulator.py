@@ -5,6 +5,7 @@ Program to test that emulated ciphertexts are like the reference distrobution an
 """
 
 import random
+import argparse
 
 import emulate
 import measure
