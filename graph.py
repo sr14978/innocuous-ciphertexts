@@ -1,5 +1,8 @@
 #!/usr/bin/python2
 
+description="""Program to show how emulation is doing compared to fake and normal urls
+"""
+
 import numpy as np
 import math
 import calculate as calc
