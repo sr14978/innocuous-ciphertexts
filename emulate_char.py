@@ -1,11 +1,13 @@
 
+"""This is a progam for creating an invertable encoding that produces ciphertexts that look like they come from a given distrobution"""
+
 import numpy as np
 from collections import deque
 import random
 
-"""construct encode and decode fuctions that emulate the `bins` character distrobution"""
+
 def init_emulator(bins, base=10, message_length=64*8):
-		
+	"""Returns (encode, decode) functions that emulate the character distrobution defined by `bins`."""
 	cumlative_splits = _create_cumlative_splits(bins)
 	digit_splits = _create_digit_splits(bins, base, cumlative_splits)
 	base_powers = _calculate_powers_of_base(base, message_length)
@@ -40,8 +42,9 @@ def init_emulator(bins, base=10, message_length=64*8):
 				
 	return encode, decode
 
-"""Calculate the boundaries of each bin in the cumlative distrobution"""
+
 def _create_cumlative_splits(bins):
+	"""Calculate the boundaries of each bin in the cumlative distrobution"""	
 	cumlative_splits_upper_bounds = np.cumsum(bins)
 	prev_bound = 0
 	cumlative_splits = []
@@ -50,8 +53,9 @@ def _create_cumlative_splits(bins):
 		prev_bound = bound
 	return cumlative_splits
 
-"""Calculate the boundaries if the distrobution is split `base` ways - adjusting for cumlative bins overflowing from one split to the next"""
+
 def _create_digit_splits(bins, base, cumlative_splits):
+	"""Calculate the boundaries if the distrobution is split `base` ways - adjusting for cumlative bins overflowing from one split to the next"""
 	bins_total = sum(bins)	
 	digit_splits_width = float(bins_total) / base
 	digit_splits = []
@@ -68,8 +72,8 @@ def _create_digit_splits(bins, base, cumlative_splits):
 	
 	return digit_splits
 
-"""Precalculate the needed powers of the base - reverse order"""
 def _calculate_powers_of_base(base, message_length):
+	"""Precalculate the needed powers of the base - reverse order"""
 	message_max = 1 << message_length
 	i = 1
 	base_powers = deque()
@@ -78,8 +82,9 @@ def _calculate_powers_of_base(base, message_length):
 		i *= base
 	return list(base_powers)
 
-"""Invert the lookup table"""
+
 def _lies_at_index_range(dist, value):
+	"""Invert the lookup table"""
 	for i,(low,high) in enumerate(dist):
 		if low <= value and value < high:
 			return i
