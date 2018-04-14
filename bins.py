@@ -78,7 +78,7 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 		bins = [0] * 256
 		for url in urls:
-			bins[ord(url[random.randrange(len(line))])] += 1
+			bins[ord(url[random.randrange(len(url))])] += 1
 		
 		return bins[30:130]
 
