@@ -2,9 +2,11 @@
 <ul>
 <li><p>ensure python2 is installed<br>python2 -V</p>
 </li>
-<li><p>install tshark via packet manager<br>sudo apt install tshark</p>
+<li><p>install tshark via packet manager<br>sudo apt install tshark<br>select enable non-sudo capture, then add privledge to current user with<br>sudo usermod -aG wireshark $USER </p>
 </li>
 <li><p>install matplotlib via packet manager<br>sudo apt-get install python-matplotlib</p>
+</li>
+<li><p>install python pip<br>sudo apt install python-pip</p>
 </li>
 <li><p>use pip to install python requirements<br>pip2 install -r requirements</p>
 </li>
@@ -33,16 +35,18 @@
 <li>FIRST_LETTER:&#39;first&#39;</li>
 <li>RANDOM_LETTER:&#39;rand&#39;</li>
 </ul>
-<p>./bins.py --input 100/reference_urls \<br>  --output 100/reference_&lt;method&gt;_bins \<br>  --mode &lt;method&gt;<br>eg ./bins.py --input 100/reference_urls \<br>  --output 100/reference_char_bins \<br>  --mode char</p>
+<p>./bins.py --in 100/reference_urls --out 100/reference_&lt;method&gt;_bins --mode &lt;method&gt;<br>eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char</p>
 </li>
-<li><p>You can calculate the distance between given urls and a reference distrobution with the calculate program<br>./calculate &lt;url_test_file&gt; &lt;reference_bins&gt;<br>eg ./calculate 100/fake/1 100/reference_char_bins</p>
+<li><p>You can calculate the distance between given urls and a reference distrobution with the calculate program<br>./calculate.py &lt;url_test_file&gt; &lt;reference_bins&gt;<br>eg ./calculate.py 100/fakes/1 100/reference_char_bins</p>
 </li>
 <li><p>A threshold can be found to differentiate the normal and fake distrobutions using the find threshold program<br>./find_threshold.py --mode &lt;binning_method&gt;<br>eg ./find_threshold.py --mode char</p>
 </li>
 <li><p>You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program<br>./measure.py --size &lt;number_of_urls&gt; --folder &lt;folder&gt; --index &lt;#&gt; --mode &lt;binning_method&gt;<br>eg ./measure.py --size 100 --folder fakes --index 1 --mode char</p>
 </li>
-<li><p>You can use the emulator program to produce url messages that emulate the reference distrobution<br>./emulate.py --output &lt;output_filepath&gt; --mode &lt;binning_method&gt;<br>./emulate.py --output 100/emulated/char/1 --mode char</p>
+<li><p>You can use the emulator program to produce url messages that emulate the reference distrobution<br>./emulate.py --out &lt;output_filepath&gt; --mode &lt;binning_method&gt;<br>eg ./emulate.py --out 100/emulated/char/1 --mode char</p>
 </li>
-<li><p>You can also see how emulation is doing with the graph program<br>./graph.py --mode &lt;binning_method&gt;<br>./graph.py --mode char</p>
+<li><p>You can also see how emulation is doing with the graph program<br>./graph.py --mode &lt;binning_method&gt;<br>eg ./graph.py --mode char</p>
+</li>
+<li><p>You can test the emulation using the test emulator program<br>./test_emulator.py --mode &lt;binning_method&gt;<br>eg ./test_emulator.py --mode char</p>
 </li>
 </ul>

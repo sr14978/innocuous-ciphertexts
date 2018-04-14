@@ -44,12 +44,8 @@ eg ./print.py 100/reference_urls
   - FIRST_LETTER:'first'
   - RANDOM_LETTER:'rand'
 
-  ./bins.py --in 100/reference_urls \
-	--out 100/reference_<method>_bins \
-	--mode <method>
-  eg ./bins.py --in 100/reference_urls \
-	--out 100/reference_char_bins \
-	--mode char
+  ./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
+  eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
 	
 - You can calculate the distance between given urls and a reference distrobution with the calculate program
 ./calculate.py <url_test_file> <reference_bins>
