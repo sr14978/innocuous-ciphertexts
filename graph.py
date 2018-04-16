@@ -1,6 +1,9 @@
 #!/usr/bin/python2
 
-description = """Program to display the relation of normal, fake and emulated distrobutions to a reference distrobution.
+"""
+This program can display the relation of normal, fake and emulated distrobutions to a reference distrobution.
+./graph.py --mode <binning_method>
+eg ./graph.py --mode char
 """
 
 import numpy as np
@@ -12,8 +15,8 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
-def main(size=100, mode=bins.default_mode):
-	
+def display(size=100, mode=bins.default_mode):
+
 	base_path = os.path.dirname(os.path.abspath(__file__))
 
 	fake_path = base_path + "/" + str(size) + "/fakes/"
@@ -37,11 +40,11 @@ def main(size=100, mode=bins.default_mode):
 
 	plt.plot(fakes, 'ro', normals, 'go', emulateds, 'bo')
 	plt.show()
-	
+
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description=description)
+	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-s', '--size', default="100")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
-	main(args["size"], args["mode"])
+	display(args["size"], args["mode"])

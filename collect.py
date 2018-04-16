@@ -1,7 +1,18 @@
 #!/usr/bin/python2
 
-description = """
-Program to collect a list of paths from clear http requests
+"""
+This program allows you to collect some url paths from unencrypted http requests in the following way
+./collect.py --output <output_filepath> --size <number_of_urls>
+eg ./collect.py --output 100/fakes/1 --size 100
+
+There are already examples stored in
+
+- 100/fakes/
+- 100/normals/
+- 100/emulated/
+
+and a reference list to test against at
+- 100/reference_urls
 """
 
 import pyshark
@@ -41,7 +52,7 @@ def main(output_file, sample_size=100, continue_flag=False):
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description=description)
+	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-c', '--continue', action='store_true')
 	parser.add_argument('-o', '--output', default="test_urls")
 	parser.add_argument('-s', '--size', default=100)
