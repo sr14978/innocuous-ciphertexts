@@ -19,9 +19,10 @@ import random
 modes = {
 	'CHARACTER_DISTROBUTION':'char',
 	'SLASHES_FREQUENCY':'slash',
-	'INTER_SLASH_DIST':'length',
+	'INTER_SLASH_DIST':'dist',
 	'FIRST_LETTER':'first',
 	'RANDOM_LETTER':'rand',
+    'URL_LENGTH':'length'
 }
 
 default_mode = modes['CHARACTER_DISTROBUTION']
@@ -89,6 +90,13 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 		return bins[30:130]
 
+    elif mode == modes['URL_LENGTH']:
+
+        bins = [0] * 500
+        for url in urls:
+            bins[len(url)] += 1
+
+        return bins
 
 if __name__ == "__main__":
 
