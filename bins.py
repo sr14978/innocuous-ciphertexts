@@ -90,13 +90,13 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 		return bins[30:130]
 
-    elif mode == modes['URL_LENGTH']:
+	elif mode == modes['URL_LENGTH']:
 
-        bins = [0] * 500
-        for url in urls:
-            bins[len(url)] += 1
+		bins = [0] * 10000
+		for url in urls:
+			bins[len(url)] += 1
 
-        return bins
+		return bins
 
 if __name__ == "__main__":
 
