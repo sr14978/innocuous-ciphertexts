@@ -1,3 +1,4 @@
+
 # INSTALLATION
 
 - ensure python2 is installed
@@ -16,7 +17,6 @@ sudo apt install python-pip
 
 - use pip to install python requirements
 pip2 install -r requirements
-
 
 # USAGE
 

@@ -34,13 +34,12 @@ sudo apt install python-pip
 
 - use pip to install python requirements
 pip2 install -r requirements
-
 """
 
 def main():
     docs = [get_doc(f) for f in filenames]
     usage_instructions = "\n".join(docs)
-    output = install_title + "\n" + install_instructions + "\n" + usage_title + "\n" + usage_instructions
+    output = "\n" + install_title + "\n" + install_instructions + "\n" + usage_title + "\n" + usage_instructions
     with open("README.md", "w") as f:
         f.write(output)
 
