@@ -7,7 +7,7 @@ python2 -V
 - install tshark via packet manager
 sudo apt install tshark
 select enable non-sudo capture, then add privledge to current user with
-sudo usermod -aG wireshark $USER 
+sudo usermod -aG wireshark $USER
 
 - install matplotlib via packet manager
 sudo apt-get install python-matplotlib
@@ -29,10 +29,10 @@ eg ./collect.py --output 100/fakes/1 --size 100
   - 100/fakes/
   - 100/normals/
   - 100/emulated/
-  
+
   and a reference list to test against at
   - 100/reference_urls
-  
+
 - These can be viewed using the print program
 ./print.py <filepath>
 eg ./print.py 100/reference_urls
@@ -46,7 +46,7 @@ eg ./print.py 100/reference_urls
 
   ./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
   eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
-	
+
 - You can calculate the distance between given urls and a reference distrobution with the calculate program
 ./calculate.py <url_test_file> <reference_bins>
 eg ./calculate.py 100/fakes/1 100/reference_char_bins
@@ -70,4 +70,3 @@ eg ./graph.py --mode char
 - You can test the emulation using the test emulator program
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
-
