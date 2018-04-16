@@ -87,7 +87,7 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 	if smoothed:
 		if any([i==0 for i in bins]):
-			bins = [i+1e-2 for i in bins]
+			bins = [i+1 for i in bins]
 
 	return bins
 
