@@ -2,7 +2,7 @@
 <ul>
 <li><p>ensure python2 is installed<br>python2 -V</p>
 </li>
-<li><p>install tshark via packet manager<br>sudo apt install tshark<br>select enable non-sudo capture, then add privledge to current user with<br>sudo usermod -aG wireshark $USER </p>
+<li><p>install tshark via packet manager<br>sudo apt install tshark<br>select enable non-sudo capture, then add privledge to current user with<br>sudo usermod -aG wireshark $USER</p>
 </li>
 <li><p>install matplotlib via packet manager<br>sudo apt-get install python-matplotlib</p>
 </li>
@@ -12,8 +12,7 @@
 </li>
 </ul>
 <h1 id="usage">USAGE</h1>
-<ul>
-<li><p>You can collect some urls using the collect program<br>./collect.py --output &lt;output_filepath&gt; --size &lt;number_of_urls&gt;<br>eg ./collect.py --output 100/fakes/1 --size 100</p>
+<p>This program allows you to collect some url paths from unencrypted http requests in the following way<br>./collect.py --output &lt;output_filepath&gt; --size &lt;number_of_urls&gt;<br>eg ./collect.py --output 100/fakes/1 --size 100</p>
 <p>There are already examples stored in</p>
 <ul>
 <li>100/fakes/</li>
@@ -24,10 +23,8 @@
 <ul>
 <li>100/reference_urls</li>
 </ul>
-</li>
-<li><p>These can be viewed using the print program<br>./print.py &lt;filepath&gt;<br>eg ./print.py 100/reference_urls</p>
-</li>
-<li><p>A distrobution historgram can be computed with the bin program. You can choose one of the following methods:</p>
+<p>This program can be used to view data such as urls and distrobution historgram bins as follows<br>./view.py &lt;filepath&gt;<br>eg ./view.py 100/reference_urls</p>
+<p>A distrobution historgram of the urls can be computed with this bin program. You can choose one of the following methods:</p>
 <ul>
 <li>CHARACTER_DISTROBUTION:&#39;char&#39;</li>
 <li>SLASHES_FREQUENCY:&#39;slash&#39;</li>
@@ -36,17 +33,9 @@
 <li>RANDOM_LETTER:&#39;rand&#39;</li>
 </ul>
 <p>./bins.py --in 100/reference_urls --out 100/reference_&lt;method&gt;_bins --mode &lt;method&gt;<br>eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char</p>
-</li>
-<li><p>You can calculate the distance between given urls and a reference distrobution with the calculate program<br>./calculate.py &lt;url_test_file&gt; &lt;reference_bins&gt;<br>eg ./calculate.py 100/fakes/1 100/reference_char_bins</p>
-</li>
-<li><p>A threshold can be found to differentiate the normal and fake distrobutions using the find threshold program<br>./find_threshold.py --mode &lt;binning_method&gt;<br>eg ./find_threshold.py --mode char</p>
-</li>
-<li><p>You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program<br>./measure.py --size &lt;number_of_urls&gt; --folder &lt;folder&gt; --index &lt;#&gt; --mode &lt;binning_method&gt;<br>eg ./measure.py --size 100 --folder fakes --index 1 --mode char</p>
-</li>
-<li><p>You can use the emulator program to produce url messages that emulate the reference distrobution<br>./emulate.py --out &lt;output_filepath&gt; --mode &lt;binning_method&gt;<br>eg ./emulate.py --out 100/emulated/char/1 --mode char</p>
-</li>
-<li><p>You can also see how emulation is doing with the graph program<br>./graph.py --mode &lt;binning_method&gt;<br>eg ./graph.py --mode char</p>
-</li>
-<li><p>You can test the emulation using the test emulator program<br>./test_emulator.py --mode &lt;binning_method&gt;<br>eg ./test_emulator.py --mode char</p>
-</li>
-</ul>
+<p>You can calculate the distance between given urls and a reference distrobution with this program.<br>./calculate.py &lt;url_test_file&gt; &lt;reference_bins&gt;<br>eg ./calculate.py 100/fakes/1 100/reference_char_bins</p>
+<p>This program can calculate a decision threshold to differentiate the normal and fake distrobutions.<br>./find_threshold.py --mode &lt;binning_method&gt;<br>eg ./find_threshold.py --mode charq</p>
+<p>You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program<br>./measure.py --size &lt;number_of_urls&gt; --folder &lt;folder&gt; --index &lt;#&gt; --mode &lt;binning_method&gt;<br>eg ./measure.py --size 100 --folder fakes --index 1 --mode char</p>
+<p>You can use the emulator program to produce url messages that emulate the reference distrobution<br>./emulate.py --out &lt;output_filepath&gt; --mode &lt;binning_method&gt;<br>eg ./emulate.py --out 100/emulated/char/1 --mode char</p>
+<p>This program can display the relation of normal, fake and emulated distrobutions to a reference distrobution.<br>./graph.py --mode &lt;binning_method&gt;<br>eg ./graph.py --mode char</p>
+<p>You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.<br>./test_emulator.py --mode &lt;binning_method&gt;<br>eg ./test_emulator.py --mode char</p>
