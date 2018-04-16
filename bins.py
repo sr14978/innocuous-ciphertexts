@@ -32,12 +32,7 @@ def sort_file(filename_in, mode, smoothed=True):
 	with open(filename_in, "rb") as f:
 		urls = pickle.load(f)
 
-	bins = sort(urls, mode, smoothed)
-	if smoothed:
-		if any([i==0 for i in bins]):
-			bins = [i+1 for i in bins]
-	return bins
-
+	return sort(urls, mode, smoothed)
 
 def sort(urls, mode=default_mode, smoothed=True):
 	"""calculates freuqency bins from `urls`"""
@@ -47,7 +42,7 @@ def sort(urls, mode=default_mode, smoothed=True):
 		for url in urls:
 			for chr in url:
 				bins[ord(chr)] += 1
-		return bins[30:130]
+		bins = bins[30:130]
 
 	elif mode == modes['SLASHES_FREQUENCY']:
 
@@ -55,7 +50,6 @@ def sort(urls, mode=default_mode, smoothed=True):
 		for url in urls:
 			for chr in url:
 				bins[1 if chr == '/' else 0] += 1
-		return bins
 
 	elif mode == modes['INTER_SLASH_DIST']:
 
@@ -64,15 +58,10 @@ def sort(urls, mode=default_mode, smoothed=True):
 			length = 0
 			for chr in url:
 				if chr == '/':
-					if length > len(bins):
-						print(length)
-						print(filename_in)
 					bins[length] += 1
 					length = 0
 				else:
 					length += 1
-
-		return bins
 
 	elif mode == modes['FIRST_LETTER']:
 
@@ -80,7 +69,7 @@ def sort(urls, mode=default_mode, smoothed=True):
 		for url in urls:
 			bins[ord(url[0])] += 1
 
-		return bins[30:130]
+		bins = bins[30:130]
 
 	elif mode == modes['RANDOM_LETTER']:
 
@@ -88,15 +77,19 @@ def sort(urls, mode=default_mode, smoothed=True):
 		for url in urls:
 			bins[ord(url[random.randrange(len(url))])] += 1
 
-		return bins[30:130]
+		bins = bins[30:130]
 
 	elif mode == modes['URL_LENGTH']:
 
-		bins = [0] * 10000
+		bins = [0] * 2000
 		for url in urls:
 			bins[len(url)] += 1
 
-		return bins
+	if smoothed:
+		if any([i==0 for i in bins]):
+			bins = [i+1e-2 for i in bins]
+
+	return bins
 
 if __name__ == "__main__":
 
