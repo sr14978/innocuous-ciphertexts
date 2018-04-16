@@ -55,8 +55,8 @@ def calculate(size=100, mode=bins.default_mode):
 	plt.plot(fakes, 'ro', normals, 'go')
 	plt.show()
 
-	fakes_dist = _distrobution(np.mean(fakes), np.var(fakes, ddof=1))
-	normals_dist = _distrobution(np.mean(normals), np.var(normals, ddof=1))
+	fakes_dist = _distrobution(np.mean(fakes), np.var(fakes, ddof=1)+1e-5)
+	normals_dist = _distrobution(np.mean(normals), np.var(normals, ddof=1)+1e-5)
 	coeffs = _get_func(fakes_dist, normals_dist)
 	solutions = _solve_for_x(*coeffs)
 	if solutions == None:
