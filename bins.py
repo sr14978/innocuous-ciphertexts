@@ -84,7 +84,8 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 		bins = [0] * 2000
 		for url in urls:
-			bins[len(url)] += 1
+			if len(url) < 2000:
+				bins[len(url)] += 1
 
 	if smoothed:
 		if any([i==0 for i in bins]):
