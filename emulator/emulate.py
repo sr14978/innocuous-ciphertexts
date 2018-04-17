@@ -1,10 +1,3 @@
-#!/usr/bin/python2
-
-"""
-You can use the emulator program to produce url messages that emulate the reference distrobution
-./emulate.py --out <output_filepath> --mode <binning_method>
-eg ./emulate.py --out 100/emulated/char/1 --mode char
-"""
 
 import argparse
 import pickle

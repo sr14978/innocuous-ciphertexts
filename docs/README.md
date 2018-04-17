@@ -66,8 +66,8 @@ eg ./measure.py --size 100 --folder fakes --index 1 --mode char
 
 
 You can use the emulator program to produce url messages that emulate the reference distrobution
-./emulate.py --out <output_filepath> --mode <binning_method>
-eg ./emulate.py --out 100/emulated/char/1 --mode char
+./run_emulator.py --out <output_filepath> --mode <binning_method>
+eg ./run_emulator.py --out 100/emulated/char/1 --mode char
 
 
 This program can display the relation of normal, fake and emulated distrobutions to a reference distrobution.
@@ -78,3 +78,4 @@ eg ./graph.py --mode char
 You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
+

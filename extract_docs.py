@@ -3,15 +3,15 @@
 import imp
 
 filenames = [
-    "collect",
-    "view",
-    "bins",
-    "calculate",
-    "find_threshold",
-    "measure",
-    "emulate",
-    "graph",
-    "test_emulator"
+	"collect",
+	"view",
+	"bins",
+	"calculate",
+	"find_threshold",
+	"measure",
+	"run_emulator",
+	"graph",
+	"test_emulator"
 ]
 
 install_title = "# INSTALLATION"
@@ -37,20 +37,21 @@ pip2 install -r requirements
 """
 
 def main():
-    docs = [get_doc(f) for f in filenames]
-    usage_instructions = "\n".join(docs)
-    output = "\n" + install_title + "\n" + install_instructions + "\n" + usage_title + "\n" + usage_instructions
-    with open("README.md", "w") as f:
-        f.write(output)
+	docs = [get_doc(f) for f in filenames]
+	usage_instructions = "\n".join(docs)
+	outputs = [install_title, install_instructions, usage_title, usage_instructions]
+	output = "\n" + "\n".join(outputs) + "\n"
+	with open("docs/README.md", "w") as f:
+		f.write(output)
 
 def get_doc(filename):
-    with open(filename + ".py", "r") as f:
-        return imp.load_module(
-            filename,
-            f,
-            filename+".py",
-            ("py", "r", imp.PY_SOURCE)
-        ).__doc__
+	with open(filename + ".py", "r") as f:
+		return imp.load_module(
+			filename,
+			f,
+			filename+".py",
+			("py", "r", imp.PY_SOURCE)
+		).__doc__
 
 if __name__ == "__main__":
-    main()
+	main()
