@@ -22,7 +22,7 @@ def test(size, folder, index=None, mode=bins.default_mode):
 		while os.path.exists(path + str(index)):
 			index += 1
 
-		col.main(path + str(index), size=size)
+		col.main(path + str(index), sample_size=size)
 
 	with open(path + str(index), "rb") as f:
 		urls = pickle.load(f)

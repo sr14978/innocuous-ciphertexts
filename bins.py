@@ -53,12 +53,13 @@ def sort(urls, mode=default_mode, smoothed=True):
 
 	elif mode == modes['INTER_SLASH_DIST']:
 
-		bins = [0] * 1024
+		bins = [0] * 100
 		for url in urls:
 			length = 0
 			for chr in url:
 				if chr == '/':
-					bins[length] += 1
+					if length < len(bins):
+						bins[length] += 1
 					length = 0
 				else:
 					length += 1
@@ -95,12 +96,15 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-i', '--in', default="100/reference_urls")
-	parser.add_argument('-o', '--out', default="100/reference_char_bins")
+	parser.add_argument('-o', '--out')
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-ns', '--nosmooth', action='store_true')
 	args = vars(parser.parse_args())
 
-	with open(args["out"], "wb") as f:
-		bins = sort_file(args["in"], args["mode"], not args["nosmooth"])
-		pickle.dump(bins, f)
+	bins = sort_file(args["in"], args["mode"], not args["nosmooth"])
+	if args["out"] == None:
+		print bins
+	else:
+		with open(args["out"], "wb") as f:
+			pickle.dump(bins, f)

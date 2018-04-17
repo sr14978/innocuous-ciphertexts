@@ -8,15 +8,26 @@ from bins import modes
 from bins import default_mode
 
 
-def get_emulations(messages=None, message_length=64*8, number=100, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
+def get_emulations(messages=None, number=100, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
 	"""Produce example encodings"""
-	if messages == None:
-		messages = [random.getrandbits(message_length) for _ in range(number)]
 
-	encode, _ = init_emulator(mode=mode, message_length=message_length, reference_file=reference_file)
+	if mode == modes['URL_LENGTH']:
+		message_length = 238
+		encode,decode = init_emulator(mode=mode)
+		def randchar():
+			return chr(random.randrange(33, 127))
 
-	return [encode(m) for m in messages]
+		if messages == None:
+			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
+		return encode(messages)
 
+	else:
+		message_length = 238*8
+		encode,decode = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
+
+		if messages == None:
+			messages = [random.getrandbits(message_length) for _ in range(number)]
+		return [encode(m) for m in messages]
 
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
