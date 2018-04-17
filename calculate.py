@@ -19,7 +19,7 @@ def test_file(test_file, reference_file, mode=bins.default_mode):
 
 def test(urls, reference_file, mode=bins.default_mode):
 
-	test = bins.sort(urls, mode)
+	test = bins.sort(urls, mode, smoothed=False)
 
 	with open(reference_file, "rb") as f:
 		reference = pickle.load(f)
