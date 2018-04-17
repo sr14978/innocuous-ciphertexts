@@ -14,13 +14,25 @@ from bins import modes
 def test(mode=modes['CHARACTER_DISTROBUTION']):
 
 	size = 100
-	message_length = 256*8
-	messages = [random.getrandbits(message_length) for _ in range(size)]
+	optionA = [modes[m] for m in ['CHARACTER_DISTROBUTION','SLASHES_FREQUENCY',
+		'INTER_SLASH_DIST', 'FIRST_LETTER','RANDOM_LETTER']]
+	if mode in optionA:
+		message_length = 256*8
+		messages = [random.getrandbits(message_length) for _ in range(size)]
 
-	encode,decode = emulate.init_emulator(mode=mode, message_length=message_length)
+		encode,decode = emulate.init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
 
-	urls = [encode(m) for m in messages]
-	message_decodings = [decode(u) for u in urls]
+		urls = [encode(m) for m in messages]
+		message_decodings = [decode(u) for u in urls]
+
+	elif mode == modes['URL_LENGTH']:
+		message_length = 238
+		encode,decode = emulate.init_emulator(mode=mode)
+		def randchar():
+			return chr(random.randrange(33, 127))
+		messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(size)]
+		urls = encode(messages)
+		message_decodings = decode(urls)
 
 	is_inverted_correctly = all([a==b for a,b in zip(messages, message_decodings)])
 	print("Invertable" if is_inverted_correctly else "Not Invertable")

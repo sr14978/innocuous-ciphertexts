@@ -36,7 +36,7 @@ def _solve_for_x(a,b,c):
 	else:
 		return ( ((-b) + math.sqrt(test) ) / (2*a), ((-b) - math.sqrt(test) ) / (2*a) )
 
-def calculate(size=100, mode=bins.default_mode):
+def calculate(size=100, mode=bins.default_mode, enable_graphs=True):
 	"""Calculates the point of equal probility density when the the two datasets are modelled as normal distrobutions"""
 	base_path = os.path.dirname(os.path.abspath(__file__))
 	fake_path = base_path + "/" + str(size) + "/fakes/"
@@ -52,8 +52,9 @@ def calculate(size=100, mode=bins.default_mode):
 
 	fakes = [test(p) for p in fake_paths]
 	normals = [test(p) for p in normal_paths]
-	plt.plot(fakes, 'ro', normals, 'go')
-	plt.show()
+	if enable_graphs:
+		plt.plot(fakes, 'ro', normals, 'go')
+		plt.show()
 
 	fakes_dist = _distrobution(np.mean(fakes), np.var(fakes, ddof=1)+1e-5)
 	normals_dist = _distrobution(np.mean(normals), np.var(normals, ddof=1)+1e-5)

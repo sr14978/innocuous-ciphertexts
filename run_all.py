@@ -7,7 +7,7 @@ Program to run all function with default paths
 import argparse, pickle
 import collect, bins, find_threshold, emulator
 
-def main(collect_new_flag):
+def main(collect_new_flag, enable_graphs_flag):
 
 	if collect_new_flag:
 		print "Press enter to collect fakes."
@@ -28,7 +28,7 @@ def main(collect_new_flag):
 
 	for mode in bins.modes.values():
 		print "Calculating " + mode + " threshold"
-		results = find_threshold.calculate(mode=mode)
+		results = find_threshold.calculate(mode=mode, enable_graphs=enable_graphs_flag)
 		with open("100/threshold_" + mode, "w") as f:
 			f.write(str(results))
 
@@ -39,5 +39,6 @@ def main(collect_new_flag):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-c', '--collect_new', action='store_true')
+	parser.add_argument('-g', '--enable_graphs', action='store_true')
 	args = vars(parser.parse_args())
-	main(args["collect_new"])
+	main(args["collect_new"], args["enable_graphs"])
