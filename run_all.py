@@ -10,15 +10,19 @@ import collect, bins, find_threshold, emulator
 def main(collect_new, enable_graphs, enable_emulations):
 
 	if collect_new:
+		print "Press enter to collect reference urls"
+		raw_input()
+		collect.main('100/reference_urls')
+
 		print "Press enter to collect fakes."
 		raw_input()
 		for i in range(10):
-			collect.main('100/fakes/'+str(i), size=100)
+			collect.main('100/fakes/'+str(i))
 
 		print "Press enter to collect normal packets."
 		raw_input()
 		for i in range(10):
-			collect.main('100/normals/'+str(i), size=100)
+			collect.main('100/normals/'+str(i))
 
 	for mode in bins.modes.values():
 		print "Creating " + mode + " histogram."
