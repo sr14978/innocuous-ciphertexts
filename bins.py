@@ -15,6 +15,8 @@ eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
 import argparse
 import pickle
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 
 modes = {
 	'CHARACTER_DISTROBUTION':'char',
@@ -27,14 +29,14 @@ modes = {
 
 default_mode = modes['CHARACTER_DISTROBUTION']
 
-def sort_file(filename_in, mode, smoothed=True):
+def sort_file(filename_in, mode, smoothed=True, graph=False):
 	"""calculates freuqency bins from urls in `filename`"""
 	with open(filename_in, "rb") as f:
 		urls = pickle.load(f)
 
-	return sort(urls, mode, smoothed)
+	return sort(urls, mode, smoothed, graph)
 
-def sort(urls, mode=default_mode, smoothed=True):
+def sort(urls, mode=default_mode, smoothed=True, graph=False):
 	"""calculates freuqency bins from `urls`"""
 	if mode == modes['CHARACTER_DISTROBUTION']:
 
@@ -87,11 +89,22 @@ def sort(urls, mode=default_mode, smoothed=True):
 			if len(url) < 2000:
 				bins[len(url)] += 1
 
-	if smoothed:
-		if any([i==0 for i in bins]):
-			bins = [i+1 for i in bins]
+	total = sum(bins)
+
+	if smoothed and any([i==0 for i in bins]):
+		smoothing_proportion = 1e-2
+		smoothed_total = total / (1 - smoothing_proportion)
+		smoothing_value = smoothing_proportion/len(bins)
+		bins = [smoothing_value + float(i)/smoothed_total for i in bins]
+	else:
+		bins = [float(i)/total for i in bins]
+
+	if graph:
+		plt.plot(np.cumsum(bins))
+		plt.show()
 
 	return bins
+
 
 if __name__ == "__main__":
 
@@ -101,9 +114,10 @@ if __name__ == "__main__":
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-ns', '--nosmooth', action='store_true')
+	parser.add_argument('-g', '--graph', action='store_true')
 	args = vars(parser.parse_args())
 
-	bins = sort_file(args["in"], args["mode"], not args["nosmooth"])
+	bins = sort_file(args["in"], args["mode"], not args["nosmooth"], args["graph"])
 	if args["out"] == None:
 		print bins
 	else:
