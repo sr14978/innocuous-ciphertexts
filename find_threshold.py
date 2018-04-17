@@ -46,7 +46,7 @@ def calculate(size=100, mode=bins.default_mode):
 		normal_path + p for p in os.listdir(normal_path) if p != "results"]
 	test = ft.partial(
 		calc.test_file,
-		reference_file=size + "/reference_" + mode + "_bins",
+		reference_file=str(size) + "/reference_" + mode + "_bins",
 		mode=mode
 	)
 

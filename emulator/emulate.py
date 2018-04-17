@@ -33,12 +33,16 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 	with open(reference_file, "rb") as f:
 		bins = pickle.load(f)
 
-	if mode == modes['CHARACTER_DISTROBUTION']:
+	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
 		# base = number of distrobution divisions
 		base = 10
 		import emulate_char
 		return emulate_char.init_emulator(bins, base, message_length)
+
+	elif mode == modes['URL_LENGTH']:
+		import emulate_length
+		return emulate_length.init_emulator(bins)
 
 	else:
 		print "mode not supported"

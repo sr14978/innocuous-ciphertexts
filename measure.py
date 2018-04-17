@@ -29,7 +29,7 @@ def test(size, folder, index=None, mode=bins.default_mode):
 
 	return test_raw(urls, size, mode)
 
-def test_raw(urls, size, mode=bins.default_mode):
+def test_raw(urls, size=100, mode=bins.default_mode):
 	"""Compares the given url's distance to the reference distrobtion with the threshold."""
 	with open(str(size) + "/threshold_" + mode, "r") as f:
 		threshold = float(f.readline())
