@@ -19,8 +19,10 @@ import pyshark
 import pickle
 from scipy.stats import chisquare
 import argparse
+from sys import stdout as out
 
-def main(output_file, sample_size=100, continue_flag=False):
+
+def main(output_file, sample_size=1000, continue_flag=False):
 
 	if type(sample_size) == str:
 		sample_size = int(sample_size)
@@ -35,18 +37,19 @@ def main(output_file, sample_size=100, continue_flag=False):
 						"GET" && http.request.uri != "/"'
 	)
 
-	steps = 20
-	jump = sample_size/steps
-	for i in range(steps):
-		print("read %i samples"%(i*jump))
-		capture.sniff(packet_count=jump)
-		urls = [p.http.get_field_value("request_uri")[1:] for p in capture]
-		with open(output_file, "rb") as f:
-			current_urls = pickle.load(f)
-		with open(output_file, "wb") as f:
-			pickle.dump(current_urls + urls, f)
+	with open(output_file, "rb") as f:
+		urls = pickle.load(f)
 
-	print("read %i samples"%(sample_size))
+	out.write("read %i samples"%(len(urls))); out.flush()
+
+	for packet in capture.sniff_continuously(packet_count=sample_size):
+		if len(urls) > sample_size: break
+		urls.append(packet.http.get_field_value("request_uri")[1:])
+		with open(output_file, "wb") as f:
+			pickle.dump(urls, f)
+		out.write("\rread %i samples"%(len(urls))); out.flush()
+
+	print "\rread all %i samples"%(len(urls))
 
 	capture.close()
 
