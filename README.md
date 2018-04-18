@@ -85,8 +85,8 @@ eg ./calculate.py 1000/fakes/1 1000/reference_char_bins
 
 You can use this program to compare visually how the url distrobutions compare.
 ```bash
-./visualise -m <binning_mode>
-eg ./visualise -m char
+./visualise_bins.py -m <binning_mode>
+eg ./visualise_bins.py -m char
 ```
 
 
