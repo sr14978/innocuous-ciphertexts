@@ -21,7 +21,8 @@ pip2 install -r requirements
 # USAGE
 
 This program allows you to collect some url paths from unencrypted http requests in the following way
-```./collect.py --output <output_filepath> --size <number_of_urls>
+```bash
+./collect.py --output <output_filepath> --size <number_of_urls>
 eg ./collect.py --output 100/fakes/1 --size 100
 ```
 
@@ -88,4 +89,3 @@ eg ./graph.py --mode char
 You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
-
