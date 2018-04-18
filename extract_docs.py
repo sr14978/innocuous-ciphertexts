@@ -33,6 +33,7 @@ select enable non-sudo capture, then add privledge to current user with
 ```bash
 sudo usermod -aG wireshark $USER
 ```
+(will have to log back on for it to take effect)
 
 - install matplotlib via packet manager
 ```bash
