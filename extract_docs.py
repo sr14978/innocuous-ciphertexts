@@ -43,7 +43,6 @@ def main():
 	usage_instructions = "\n".join(docs)
 	outputs = [install_title, install_instructions, usage_title, usage_instructions]
 	output = "\n" + "\n".join(outputs) + "\n"
-	output = output.replace("\n", "</br>")
 	with open("README.md", "w") as f:
 		f.write(output)
 

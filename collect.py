@@ -1,9 +1,10 @@
 #!/usr/bin/python2
 
 """
-This program allows you to collect some url paths from unencrypted http requests in the following way  
-./collect.py --output <output_filepath> --size <number_of_urls>
+This program allows you to collect some url paths from unencrypted http requests in the following way
+```./collect.py --output <output_filepath> --size <number_of_urls>
 eg ./collect.py --output 100/fakes/1 --size 100
+```
 
 There are already examples stored in
 
