@@ -84,9 +84,9 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 
 	elif mode == modes['URL_LENGTH']:
 
-		bins = [0] * 2000
+		bins = [0] * 500
 		for url in urls:
-			if len(url) < 2000:
+			if len(url) < 500: # ignore the old outliers
 				bins[len(url)] += 1
 
 	total = sum(bins)
