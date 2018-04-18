@@ -124,3 +124,9 @@ You can test that the emulated ciphertexts are like the reference distrobution  
 eg ./test_emulator.py --mode char
 ```
 
+
+Program to run all functions with default paths. -c enables collecting all new packets. -g displays the graphs as it goes along. -e enables emulation calculations.
+```bash
+./run_all.py -c -g -e
+```
+

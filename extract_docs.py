@@ -13,7 +13,8 @@ filenames = [
 	"measure",
 	"run_emulator",
 	"graph",
-	"test_emulator"
+	"test_emulator",
+	"run_all"
 ]
 
 install_title = "# INSTALLATION"
