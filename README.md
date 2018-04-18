@@ -2,21 +2,33 @@
 # INSTALLATION
 
 - ensure python2 is installed
+```bash
 python2 -V
+```
 
 - install tshark via packet manager
+```bash
 sudo apt install tshark
+```
 select enable non-sudo capture, then add privledge to current user with
+```bash
 sudo usermod -aG wireshark $USER
+```
 
 - install matplotlib via packet manager
+```bash
 sudo apt-get install python-matplotlib
+```
 
 - install python pip
+```bash
 sudo apt install python-pip
+```
 
 - use pip to install python requirements
+```bash
 pip2 install -r requirements
+```
 
 # USAGE
 
