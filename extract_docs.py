@@ -4,9 +4,11 @@ import imp
 
 filenames = [
 	"collect",
+	"visit_http",
 	"view",
 	"bins",
 	"calculate",
+	"visualise_bins",
 	"find_threshold",
 	"measure",
 	"run_emulator",
@@ -41,7 +43,7 @@ def main():
 	usage_instructions = "\n".join(docs)
 	outputs = [install_title, install_instructions, usage_title, usage_instructions]
 	output = "\n" + "\n".join(outputs) + "\n"
-	with open("docs/README.md", "w") as f:
+	with open("README.md", "w") as f:
 		f.write(output)
 
 def get_doc(filename):

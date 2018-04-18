@@ -34,6 +34,10 @@ and a reference list to test against at
 - 100/reference_urls
 
 
+This simple web crawler program will follow links on webpages to create normal looking traffic.
+./visit_http
+
+
 This program can be used to view data such as urls and distrobution historgram bins as follows
 ./view.py <filepath>
 eg ./view.py 100/reference_urls
@@ -53,6 +57,11 @@ eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
 You can calculate the distance between given urls and a reference distrobution with this program.
 ./calculate.py <url_test_file> <reference_bins>
 eg ./calculate.py 100/fakes/1 100/reference_char_bins
+
+
+You can use this program to compare visually how the url distrobutions compare.
+./visualise -m <binning_mode>
+eg ./visualise -m char
 
 
 This program can calculate a decision threshold to differentiate the normal and fake distrobutions.

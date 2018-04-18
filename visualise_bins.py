@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 
 """
-You can use this program to visualise how the urls are distrobuted.
+You can use this program to compare visually how the url distrobutions compare.
 ./visualise -m <binning_mode>
 eg ./visualise -m char
 """

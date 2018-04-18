@@ -1,5 +1,10 @@
 #!/usr/bin/python2
 
+"""
+This simple web crawler program will follow links on webpages to create normal looking traffic.
+./visit_http
+"""
+
 from collections import deque
 from HTMLParser import HTMLParser
 import urllib2, urlparse
@@ -42,25 +47,27 @@ class MyHTMLParser(HTMLParser):
 			queue.appendleft(link)
 			visited.append(link)
 
-seed_sites = ["bath", "imperial", "ucl", "bristol", "uwe"]
 
-visited = ["http://www.%s.ac.uk/"%(uni) for uni in seed_sites]
-queue = deque(visited)
-parser = MyHTMLParser()
+if __name__ == "__main__":
+	seed_sites = ["bath", "imperial", "ucl", "bristol", "uwe"]
 
-while len(queue) > 0:
-	url = queue.pop()
-	print url, len(queue)
-	try:
-		request = urllib2.urlopen(url)
-		if request.getcode() != 200:
+	visited = ["http://www.%s.ac.uk/"%(uni) for uni in seed_sites]
+	queue = deque(visited)
+	parser = MyHTMLParser()
+
+	while len(queue) > 0:
+		url = queue.pop()
+		print url, len(queue)
+		try:
+			request = urllib2.urlopen(url)
+			if request.getcode() != 200:
+				continue
+			if len(queue) > 10000:
+				continue
+			if 'text/html' in request.headers.getheader('content-type'):
+				contents = request.read()
+				parser.url = url
+				parser.feed(contents)
+
+		except:
 			continue
-		if len(queue) > 10000:
-			continue
-		if 'text/html' in request.headers.getheader('content-type'):
-			contents = request.read()
-			parser.url = url
-			parser.feed(contents)
-
-	except:
-		continue
