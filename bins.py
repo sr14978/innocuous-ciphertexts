@@ -4,9 +4,10 @@
 A distrobution historgram of the urls can be computed with this bin program. You can choose one of the following methods:
   - CHARACTER_DISTROBUTION:'char'
   - SLASHES_FREQUENCY:'slash'
-  - INTER_SLASH_DIST:'length'
+  - INTER_SLASH_DIST:'dist',
   - FIRST_LETTER:'first'
   - RANDOM_LETTER:'rand'
+  - URL_LENGTH:'length'
 
 ```bash
 ./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
@@ -26,7 +27,7 @@ modes = {
 	'INTER_SLASH_DIST':'dist',
 	'FIRST_LETTER':'first',
 	'RANDOM_LETTER':'rand',
-    'URL_LENGTH':'length'
+	'URL_LENGTH':'length'
 }
 
 default_mode = modes['CHARACTER_DISTROBUTION']
