@@ -22,7 +22,7 @@ def init_emulator(bins, base=10, message_length=64*8):
 		characters = []
 		for digit in digits:
 			low_split, high_split = digit_splits[digit]
-			value = random.randrange(low_split, high_split)
+			value = low_split + random.random()*(high_split-low_split)
 			index = com._lies_at_index_range(cumlative_splits, value)
 			char = chr(index + 30)	# bin offset
 			characters.append(char)

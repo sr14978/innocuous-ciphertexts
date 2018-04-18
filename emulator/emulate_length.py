@@ -16,7 +16,7 @@ def init_emulator(bins):
 		# put in to a continous stream
 		data_stream = ""
 		for text in messages:
-			data_stream += "%08X"%(len(text))
+			data_stream += "%04X"%(len(text))
 			data_stream += text
 
 		# slice up following the distrobution
@@ -25,11 +25,9 @@ def init_emulator(bins):
 			length = sample(cumlative_splits)
 			if len(data_stream) > length:
 				out = data_stream[:length]
-				distributed_texts.append("%04x"%(length))
 				distributed_texts.append(out)
 				data_stream = data_stream[length:]
 			else:
-				distributed_texts.append("%04x"%(len(data_stream)))
 				distributed_texts.append(data_stream)
 				data_stream = ""
 
@@ -53,5 +51,4 @@ def init_emulator(bins):
 	return encode, decode
 
 def sample(dist):
-	max = dist[-1][1]
-	return com._lies_at_index_range(dist, random.randrange(max))
+	return 10# com._lies_at_index_range(dist, random.random())
