@@ -38,7 +38,7 @@ def display(size=100, mode=bins.default_mode):
 	normals = [test(p) for p in normal_paths]
 	emulateds = [test(p) for p in emulated_paths]
 
-	plt.plot(fakes, 'ro', normals, 'go', emulateds, 'bo')
+	plt.plot(fakes, 'ro', normals, 'go', emulateds, 'bx')
 	plt.show()
 
 if __name__ == "__main__":
