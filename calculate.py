@@ -4,7 +4,7 @@
 You can calculate the distance between given urls and a reference distrobution with this program.
 ```bash
 ./calculate.py <url_test_file> <reference_bins>
-eg ./calculate.py 100/fakes/1 100/reference_char_bins
+eg ./calculate.py 1000/fakes/1 1000/reference_char_bins
 ```
 """
 
@@ -38,7 +38,7 @@ def test(urls, reference_file, mode=bins.default_mode):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('test', default="test_urls")
-	parser.add_argument('reference', default="100/reference_char_bins")
+	parser.add_argument('reference', default="1000/reference_char_bins")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())

@@ -17,7 +17,7 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
-def display(size=100, mode=bins.default_mode):
+def display(size=1000, mode=bins.default_mode):
 
 	base_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -45,7 +45,7 @@ def display(size=100, mode=bins.default_mode):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-s', '--size', default="100")
+	parser.add_argument('-s', '--size', default="1000")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())

@@ -8,7 +8,7 @@ from bins import modes
 from bins import default_mode
 
 
-def get_emulations(messages=None, number=100, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
+def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
 	"""Produce example encodings"""
 
 	if mode == modes['URL_LENGTH']:
@@ -32,7 +32,7 @@ def get_emulations(messages=None, number=100, mode=modes['CHARACTER_DISTROBUTION
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
 	if reference_file == None:
-		reference_file = "100/reference_" + mode + "_bins"
+		reference_file = "1000/reference_" + mode + "_bins"
 
 	with open(reference_file, "rb") as f:
 		bins = pickle.load(f)
@@ -55,7 +55,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-o', '--out', default="100/emulated/char/1")
+	parser.add_argument('-o', '--out', default="1000/emulated/char/1")
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-nu', '--no_use', action='store_true')

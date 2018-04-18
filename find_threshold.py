@@ -38,7 +38,7 @@ def _solve_for_x(a,b,c):
 	else:
 		return ( ((-b) + math.sqrt(test) ) / (2*a), ((-b) - math.sqrt(test) ) / (2*a) )
 
-def calculate(size=100, mode=bins.default_mode, enable_graphs=True):
+def calculate(size=1000, mode=bins.default_mode, enable_graphs=True):
 	"""Calculates the point of equal probility density when the the two datasets are modelled as normal distrobutions"""
 	base_path = os.path.dirname(os.path.abspath(__file__))
 	fake_path = base_path + "/" + str(size) + "/fakes/"
@@ -78,7 +78,7 @@ def calculate(size=100, mode=bins.default_mode, enable_graphs=True):
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-s', '--size', default="100")
+	parser.add_argument('-s', '--size', default="1000")
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())

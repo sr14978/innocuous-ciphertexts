@@ -10,8 +10,8 @@ A distrobution historgram of the urls can be computed with this bin program. You
   - URL_LENGTH:'length'
 
 ```bash
-./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
-eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
+./bins.py --in 1000/reference_urls --out 1000/reference_<method>_bins --mode <method>
+eg ./bins.py --in 1000/reference_urls --out 1000/reference_char_bins --mode char
 ```
 """
 
@@ -112,7 +112,7 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-i', '--in', default="100/reference_urls")
+	parser.add_argument('-i', '--in', default="1000/reference_urls")
 	parser.add_argument('-o', '--out')
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])

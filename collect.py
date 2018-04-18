@@ -4,17 +4,17 @@
 This program allows you to collect some url paths from unencrypted http requests in the following way
 ```bash
 ./collect.py --output <output_filepath> --size <number_of_urls>
-eg ./collect.py --output 100/fakes/1 --size 100
+eg ./collect.py --output 1000/fakes/1 --size 1000
 ```
 
 There are already examples stored in
 
-- 100/fakes/
-- 100/normals/
-- 100/emulated/
+- 1000/fakes/
+- 1000/normals/
+- 1000/emulated/
 
 and a reference list to test against at
-- 100/reference_urls
+- 1000/reference_urls
 """
 
 import pyshark

@@ -13,7 +13,7 @@ from bins import modes
 
 def test(mode=modes['CHARACTER_DISTROBUTION']):
 
-	size = 100
+	size = 1000
 
 	if mode == modes['URL_LENGTH']:
 		message_length = 238
@@ -23,7 +23,7 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 		messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(size)]
 		urls = encode(messages)
 		message_decodings = decode(urls)
-		
+
 	else:
 		message_length = 256*8
 		messages = [random.getrandbits(message_length) for _ in range(size)]

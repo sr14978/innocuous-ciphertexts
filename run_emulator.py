@@ -4,7 +4,7 @@
 You can use the emulator program to produce url messages that emulate the reference distrobution
 ```bash
 ./run_emulator.py --out <output_filepath> --mode <binning_method>
-eg ./run_emulator.py --out 100/emulated/char/1 --mode char
+eg ./run_emulator.py --out 1000/emulated/char/1 --mode char
 ```
 """
 
@@ -20,7 +20,7 @@ import emulator
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-o', '--out', default="100/emulated/char/1")
+	parser.add_argument('-o', '--out', default="1000/emulated/char/1")
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-nu', '--no_use', action='store_true')

@@ -36,17 +36,17 @@ pip2 install -r requirements
 This program allows you to collect some url paths from unencrypted http requests in the following way
 ```bash
 ./collect.py --output <output_filepath> --size <number_of_urls>
-eg ./collect.py --output 100/fakes/1 --size 100
+eg ./collect.py --output 1000/fakes/1 --size 1000
 ```
 
 There are already examples stored in
 
-- 100/fakes/
-- 100/normals/
-- 100/emulated/
+- 1000/fakes/
+- 1000/normals/
+- 1000/emulated/
 
 and a reference list to test against at
-- 100/reference_urls
+- 1000/reference_urls
 
 
 This simple web crawler program will follow links on webpages to create normal looking traffic.
@@ -58,7 +58,7 @@ This simple web crawler program will follow links on webpages to create normal l
 This program can be used to view data such as urls and distrobution historgram bins as follows
 ```bash
 ./view.py <filepath>
-eg ./view.py 100/reference_urls
+eg ./view.py 1000/reference_urls
 ```
 
 
@@ -71,15 +71,15 @@ A distrobution historgram of the urls can be computed with this bin program. You
   - URL_LENGTH:'length'
 
 ```bash
-./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
-eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
+./bins.py --in 1000/reference_urls --out 1000/reference_<method>_bins --mode <method>
+eg ./bins.py --in 1000/reference_urls --out 1000/reference_char_bins --mode char
 ```
 
 
 You can calculate the distance between given urls and a reference distrobution with this program.
 ```bash
 ./calculate.py <url_test_file> <reference_bins>
-eg ./calculate.py 100/fakes/1 100/reference_char_bins
+eg ./calculate.py 1000/fakes/1 1000/reference_char_bins
 ```
 
 
@@ -100,14 +100,14 @@ eg ./find_threshold.py --mode char
 You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program
 ```bash
 ./measure.py --size <number_of_urls> --folder <folder> --index <#> --mode <binning_method>
-eg ./measure.py --size 100 --folder fakes --index 1 --mode char
+eg ./measure.py --size 1000 --folder fakes --index 1 --mode char
 ```
 
 
 You can use the emulator program to produce url messages that emulate the reference distrobution
 ```bash
 ./run_emulator.py --out <output_filepath> --mode <binning_method>
-eg ./run_emulator.py --out 100/emulated/char/1 --mode char
+eg ./run_emulator.py --out 1000/emulated/char/1 --mode char
 ```
 
 

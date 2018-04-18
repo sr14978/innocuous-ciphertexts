@@ -12,29 +12,29 @@ def main(collect_new, enable_graphs, enable_emulations):
 	if collect_new:
 		print "Press enter to collect reference urls"
 		raw_input()
-		collect.main('100/reference_urls')
+		collect.main('1000/reference_urls')
 
 		print "Press enter to collect fakes."
 		raw_input()
 		for i in range(10):
-			collect.main('100/fakes/'+str(i))
+			collect.main('1000/fakes/'+str(i))
 
 		print "Press enter to collect normal packets."
 		raw_input()
 		for i in range(10):
-			collect.main('100/normals/'+str(i))
+			collect.main('1000/normals/'+str(i))
 
 	for mode in bins.modes.values():
 		print "Creating " + mode + " histogram."
-		hist = bins.sort_file("100/reference_urls", mode)
-		with open("100/reference_" + mode + "_bins", 'wb') as f:
+		hist = bins.sort_file("1000/reference_urls", mode)
+		with open("1000/reference_" + mode + "_bins", 'wb') as f:
 			print str(hist)[:100], "...", str(hist)[-100:]
 			pickle.dump(hist, f)
 
 	for mode in bins.modes.values():
 		print "Calculating " + mode + " threshold"
 		results = find_threshold.calculate(mode=mode, enable_graphs=enable_graphs)
-		with open("100/threshold_" + mode, "w") as f:
+		with open("1000/threshold_" + mode, "w") as f:
 			print str(results)
 			f.write(str(results))
 
@@ -49,7 +49,7 @@ def main(collect_new, enable_graphs, enable_emulations):
 				print "Emulating example ciphertexts in " + mode + " mode."
 				for i in range(10):
 					urls = emulator.get_emulations(mode=mode)
-					with open("100/emulated/" + mode + "/" + str(i), "wb") as f:
+					with open("1000/emulated/" + mode + "/" + str(i), "wb") as f:
 						pickle.dump(urls, f)
 
 if __name__ == "__main__":
