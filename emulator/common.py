@@ -44,8 +44,13 @@ def _calculate_powers_of_base(base, message_length):
 
 def _lies_at_index_range(dist, value):
 	"""Invert the lookup table"""
-	for i,(low,high) in enumerate(dist):
-		if low <= value and value < high:
-			return i
-
-	raise Exception("Value %i not from distrobution: %s"%(value, dist))
+	a = 0; b = len(dist)-1;
+	while a != b:
+		c = (a+b)/2
+		if value < dist[c][0]:
+			b = c-1
+		elif value > dist[c][1]:
+			a = c+1
+		else:
+			return c
+	return a
