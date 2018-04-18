@@ -58,7 +58,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-c', '--continue', action='store_true')
 	parser.add_argument('-o', '--output', default="test_urls")
-	parser.add_argument('-s', '--size', default=100)
+	parser.add_argument('-s', '--size', default=1000)
 	args = vars(parser.parse_args())
 
 	main(args["output"], args["size"], args["continue"])
