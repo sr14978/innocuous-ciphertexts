@@ -2,8 +2,10 @@
 
 """
 You can use the measure program to decide if urls are fake or normal. Leaving off the index will collect new urls using the collect program
+```bash
 ./measure.py --size <number_of_urls> --folder <folder> --index <#> --mode <binning_method>
 eg ./measure.py --size 100 --folder fakes --index 1 --mode char
+```
 """
 
 import collect as col

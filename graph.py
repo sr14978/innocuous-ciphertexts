@@ -2,8 +2,10 @@
 
 """
 This program can display the relation of normal, fake and emulated distrobutions to a reference distrobution.
+```bash
 ./graph.py --mode <binning_method>
 eg ./graph.py --mode char
+```
 """
 
 import numpy as np

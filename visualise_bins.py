@@ -2,8 +2,10 @@
 
 """
 You can use this program to compare visually how the url distrobutions compare.
+```bash
 ./visualise -m <binning_mode>
 eg ./visualise -m char
+```
 """
 
 import pickle

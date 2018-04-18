@@ -8,8 +8,10 @@ A distrobution historgram of the urls can be computed with this bin program. You
   - FIRST_LETTER:'first'
   - RANDOM_LETTER:'rand'
 
+```bash
 ./bins.py --in 100/reference_urls --out 100/reference_<method>_bins --mode <method>
 eg ./bins.py --in 100/reference_urls --out 100/reference_char_bins --mode char
+```
 """
 
 import argparse

@@ -2,8 +2,10 @@
 
 """
 You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.
+```bash
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
+```
 """
 
 import argparse

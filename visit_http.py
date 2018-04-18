@@ -2,7 +2,9 @@
 
 """
 This simple web crawler program will follow links on webpages to create normal looking traffic.
+```bash
 ./visit_http
+```
 """
 
 from collections import deque

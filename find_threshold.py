@@ -2,8 +2,10 @@
 
 """
 This program can calculate a decision threshold to differentiate the normal and fake distrobutions.
+```bash
 ./find_threshold.py --mode <binning_method>
-eg ./find_threshold.py --mode charq
+eg ./find_threshold.py --mode char
+```
 """
 
 import numpy as np
