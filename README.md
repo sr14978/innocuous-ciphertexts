@@ -87,4 +87,3 @@ eg ./graph.py --mode char
 You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
-
