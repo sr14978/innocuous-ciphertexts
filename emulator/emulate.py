@@ -72,8 +72,8 @@ class decoder:
 		if index == -1:
 			return '', buffer
 		else:
-			packet = buffer[:index+1]
-			buffer = buffer[index+1:]
+			packet = buffer[:index+12]
+			buffer = buffer[index+12:]
 			msg = self._decode(packet[5:-13])
 			return msg, buffer
 

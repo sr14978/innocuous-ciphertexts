@@ -26,7 +26,7 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 		message_decodings = decode(urls)
 
 	else:
-		message_length = 256
+		message_length = 238
 		Random.get_random_bytes(5)
 		messages = [Random.get_random_bytes(message_length) for _ in range(size)]
 
