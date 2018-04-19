@@ -30,6 +30,8 @@ def init_emulator(bins, base=10, message_length=256):
 			index = com._lies_at_index_range(cumlative_splits, value)
 			char = chr(index + 30)	# bin offset
 			characters.append(char)
+
+		print "encoding", message, "".join(characters)
 		return "".join(characters)
 
 
@@ -49,6 +51,8 @@ def init_emulator(bins, base=10, message_length=256):
 			output_value >>= 8
 		while len(message) < message_length:
 			message.appendleft('\x00')
+
+		print "decoding", url, "".join(message)
 		return "".join(message)
 
 	return encode, decode
