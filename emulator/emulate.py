@@ -1,12 +1,16 @@
 
 import argparse
 import pickle
-
 import random
 
-from bins import modes
-from bins import default_mode
-
+modes = {
+	'CHARACTER_DISTROBUTION':'char',
+	'SLASHES_FREQUENCY':'slash',
+	'INTER_SLASH_DIST':'dist',
+	'FIRST_LETTER':'first',
+	'RANDOM_LETTER':'rand',
+	'URL_LENGTH':'length'
+}
 
 def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
 	"""Produce example encodings"""
@@ -76,19 +80,3 @@ class decoder:
 			buffer = buffer[index+12:]
 			msg = self._decode(packet[5:-13])
 			return msg, buffer
-
-if __name__ == "__main__":
-
-	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-o', '--out', default="1000/emulated/char/1")
-	parser.add_argument('-m', '--mode',
-		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
-	parser.add_argument('-nu', '--no_use', action='store_true')
-	args = vars(parser.parse_args())
-
-	if args["no_use"]:
-		init_emulator(mode=args["mode"])
-	else:
-		urls = get_emulations(mode=args["mode"])
-		with open(args["out"], "wb") as f:
-			pickle.dump(urls, f)
