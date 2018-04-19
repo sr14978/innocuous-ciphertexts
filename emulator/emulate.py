@@ -54,7 +54,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		import emulate_length
 		enc,dec = emulate_length.init_emulator(bins)
 
-		if False and key_enc != None and key_mac != None:
+		if key_enc != None and key_mac != None:
 			encrypter = encrypter.Encrypter(key_enc=key_enc, key_mac=key_mac)
 			enc = lambda message: enc(encrypter.encrypt(message))
 			dec = lambda message: encrypter.decrypt(dec(message))
