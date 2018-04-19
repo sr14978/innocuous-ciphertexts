@@ -49,8 +49,8 @@ def init_emulator(bins, base=10, message_length=256):
 		while output_value != 0:
 			message.appendleft(chr(output_value & 0xFF))
 			output_value >>= 8
-		while len(message) < message_length:
-			message.appendleft('\x00')
+		# while len(message) < message_length:
+		# 	message.appendleft('\x00')
 
 		print "decoding", url[:10], "...", "".join(message), ':'.join(x.encode('hex') for x in message)
 		return "".join(message)
