@@ -47,13 +47,13 @@ def init_emulator(bins, base=10, message_length=256):
 		for digit,mod in zip(digits, base_powers):
 			output_value += digit*mod
 		message = deque()
-		while output_value != 0:
+		while output_value != 0xFF:
 			message.appendleft(chr(output_value & 0xFF))
 			output_value >>= 8
 		# while len(message) < message_length:
 		# 	message.appendleft('\x00')
 
 		print "decoding", url[:10], "...", "".join(message), ':'.join(x.encode('hex') for x in message)
-		return "".join(message[1:])
+		return "".join(message)
 
 	return encode, decode
