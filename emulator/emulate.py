@@ -36,7 +36,9 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
 	if reference_file == None:
-		reference_file = "1000/reference_" + mode + "_bins"
+		import os
+		dir_path = os.path.dirname(os.path.realpath(__file__))
+		reference_file = dir_path + "/1000/reference_" + mode + "_bins"
 
 	with open(reference_file, "rb") as f:
 		bins = pickle.load(f)
