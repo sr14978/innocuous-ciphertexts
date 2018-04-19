@@ -5,6 +5,7 @@ Program to test that the emulated ciphertexts are like the reference distrobutio
 """
 
 import random
+from Crypto import Random
 
 import emulate
 import measure
@@ -25,8 +26,9 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 		message_decodings = decode(urls)
 
 	else:
-		message_length = 256*8
-		messages = [random.getrandbits(message_length) for _ in range(size)]
+		message_length = 256
+		Random.get_random_bytes(5)
+		messages = [Random.get_random_bytes(message_length) for _ in range(size)]
 
 		encode,decode = emulate.init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
 

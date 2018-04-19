@@ -7,18 +7,22 @@ import random
 
 import common as com
 
-def init_emulator(bins, base=10, message_length=64*8):
+def init_emulator(bins, base=10, message_length=256):
 	"""Returns (encode, decode) functions that emulate the character distrobution defined by `bins`."""
 	cumlative_splits = com._create_cumlative_splits(bins)
 	digit_splits = com._create_digit_splits(bins, base, cumlative_splits)
-	base_powers = com._calculate_powers_of_base(base, message_length)
+	base_powers = com._calculate_powers_of_base(base, message_length*8)
 
 	def encode(message):
+		input_value = 0
+		for char in message:
+			input_value <<= 8
+			input_value += ord(char)
 		digits = deque()
 		for mod in base_powers:
-			digit = message/mod
+			digit = input_value/mod
 			digits.appendleft(digit)
-			message -= digit*mod
+			input_value -= digit*mod
 		characters = []
 		for digit in digits:
 			low_split, high_split = digit_splits[digit]
@@ -36,9 +40,13 @@ def init_emulator(bins, base=10, message_length=64*8):
 			value,_ = cumlative_splits[index]
 			digit = com._lies_at_index_range(digit_splits, value)
 			digits.appendleft(digit)
-		message = 0
+		output_value = 0
 		for digit,mod in zip(digits, base_powers):
-			message += digit*mod
-		return message
+			output_value += digit*mod
+		message = deque()
+		while output_value != 0:
+			message.appendleft(chr(output_value & 0xFF))
+			output_value >>= 8
+		return "".join(message)
 
 	return encode, decode
