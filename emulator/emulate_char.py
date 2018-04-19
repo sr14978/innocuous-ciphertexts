@@ -14,6 +14,7 @@ def init_emulator(bins, base=10, message_length=256):
 	base_powers = com._calculate_powers_of_base(base, message_length*8)
 
 	def encode(message):
+		message = '\xFF'+message
 		input_value = 0
 		for char in message:
 			input_value <<= 8
@@ -53,6 +54,6 @@ def init_emulator(bins, base=10, message_length=256):
 		# 	message.appendleft('\x00')
 
 		print "decoding", url[:10], "...", "".join(message), ':'.join(x.encode('hex') for x in message)
-		return "".join(message)
+		return "".join(message[1:])
 
 	return encode, decode
