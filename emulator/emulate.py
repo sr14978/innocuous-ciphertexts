@@ -33,7 +33,7 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 			messages = [random.getrandbits(message_length) for _ in range(number)]
 		return [encode(m) for m in messages]
 
-def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True):
+def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True, key_enc=None, key_mac=None):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
 	if reference_file == None:
 		import os.path as path
@@ -53,6 +53,11 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 	elif mode == modes['URL_LENGTH']:
 		import emulate_length
 		enc,dec = emulate_length.init_emulator(bins)
+
+		if key_enc != None and key_mac != None:
+			encrypter = encrypter.Encrypter(key_enc=key_enc, key_mac=key_mac)
+			enc = lamda message: enc(encrypter.encrypt(message))
+			dec = lamda message: encrypter.decrypt(dec(message))
 
 	else:
 		raise Exception("mode not supported")
