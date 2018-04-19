@@ -56,8 +56,8 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 		if key_enc != None and key_mac != None:
 			encrypter = encrypter.Encrypter(key_enc=key_enc, key_mac=key_mac)
-			enc = lamda message: enc(encrypter.encrypt(message))
-			dec = lamda message: encrypter.decrypt(dec(message))
+			enc = lambda message: enc(encrypter.encrypt(message))
+			dec = lambda message: encrypter.decrypt(dec(message))
 
 	else:
 		raise Exception("mode not supported")
