@@ -51,8 +51,8 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		enc,dec = emulate_char.init_emulator(bins, base, message_length)
 
 		if key_enc != None and key_mac != None:
-			import encrypter
-			encrypter = encrypter.Encrypter(key_enc=key_enc, key_mac=key_mac)
+			from fte.encrypter import Encrypter
+			encrypter = Encrypter(K1=key_enc, K2=key_mac)
 			encode = lambda message: enc(encrypter.encrypt(message))
 			decode = lambda message: encrypter.decrypt(dec(message))
 		else:
