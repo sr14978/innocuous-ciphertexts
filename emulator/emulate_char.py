@@ -11,7 +11,7 @@ def init_emulator(bins, base=10, message_length=256):
 	"""Returns (encode, decode) functions that emulate the character distrobution defined by `bins`."""
 	cumlative_splits = com._create_cumlative_splits(bins)
 	digit_splits = com._create_digit_splits(bins, base, cumlative_splits)
-	base_powers = com._calculate_powers_of_base(base, message_length*8)
+	base_powers = com._calculate_powers_of_base(base, (message_length+1)*8)
 
 	def encode(message):
 		message = '\xFF'+message
