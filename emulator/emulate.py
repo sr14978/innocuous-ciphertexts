@@ -53,29 +53,32 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		if key_enc != None and key_mac != None:
 			import encrypter
 			encrypter = encrypter.Encrypter(key_enc=key_enc, key_mac=key_mac)
-			enc = lambda message: enc(encrypter.encrypt(message))
-			dec = lambda message: encrypter.decrypt(dec(message))
+			encode = lambda message: enc(encrypter.encrypt(message))
+			decode = lambda message: encrypter.decrypt(dec(message))
+		else:
+			encode = enc
+			decode = dec
 
 	elif mode == modes['URL_LENGTH']:
 		import emulate_length
-		enc,dec = emulate_length.init_emulator(bins)
+		encode,decode = emulate_length.init_emulator(bins)
 
 	else:
 		raise Exception("mode not supported")
 
 	if just_URI:
-		return enc, dec
+		return encode, decode
 	else:
-		return encoder(enc), decoder(dec)
+		return Encoder(encode), Decoder(decode)
 
-class encoder:
+class Encoder:
 	def __init__(self, encode):
 		self._encode = encode
 
 	def encode(self, data):
 		return "GET /" + self._encode(data) + " HTTP/1.1\r\n\r\n"
 
-class decoder:
+class Decoder:
 	def __init__(self, decode):
 		self._decode = decode
 
