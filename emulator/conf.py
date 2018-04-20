@@ -1,5 +1,5 @@
 
-
+import math
 from fte.encrypter import Encrypter
 
 size_of_char = 0x100
