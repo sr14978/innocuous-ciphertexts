@@ -45,16 +45,18 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
-		# base = number of distrobution divisions
-		base = 10
+		import emulator.conf as conf
 		import emulate_char
+		# base = number of distrobution divisions
+		base = conf.divisions
 		enc,dec = emulate_char.init_emulator(bins, base, message_length)
 
 		if key_enc != None and key_mac != None:
 			from fte.encrypter import Encrypter
+			import emulator.padder as padder
 			encrypter = Encrypter(K1=key_enc, K2=key_mac)
-			encode = lambda message: enc(encrypter.encrypt(message))
-			decode = lambda message: encrypter.decrypt(dec(message))
+			encode = lambda message: enc(encrypter.encrypt(padder.pad(message, conf.frag_plaintext_padded_length)))
+			decode = lambda message: padder.unpad(encrypter.decrypt(dec(message)))
 		else:
 			encode = enc
 			decode = dec

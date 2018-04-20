@@ -9,9 +9,10 @@ import common as com
 
 def init_emulator(bins, base=10, message_length=256):
 	"""Returns (encode, decode) functions that emulate the character distrobution defined by `bins`."""
+	message_max = (message_length+1)*8
 	cumlative_splits = com._create_cumlative_splits(bins)
 	digit_splits = com._create_digit_splits(bins, base, cumlative_splits)
-	base_powers = com._calculate_powers_of_base(base, (message_length+1)*8)
+	base_powers = com._calculate_powers_of_base(base, message_max)
 
 	def encode(message):
 		message = '\xFF'+message
@@ -19,6 +20,8 @@ def init_emulator(bins, base=10, message_length=256):
 		for char in message:
 			input_value <<= 8
 			input_value += ord(char)
+		if input_value > message_max:
+			raise Exception("Message too long")
 		digits = deque()
 		for mod in base_powers:
 			digit = input_value/mod
