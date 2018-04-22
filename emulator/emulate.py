@@ -40,10 +40,10 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		dir_path = path.abspath(path.join(__file__ ,"../.."))
 		reference_file = dir_path + "/1000/reference_" + mode + "_bins"
 
-	with open(reference_file, "rb") as f:
-		bins = pickle.load(f)
-
 	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
+
+		with open(reference_file, "rb") as f:
+			bins = pickle.load(f)
 
 		import emulate_char
 		# base = number of distrobution divisions
@@ -52,15 +52,25 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	elif mode == modes['URL_LENGTH']:
 
+		with open(reference_file, "rb") as f:
+			bins = pickle.load(f)
+
 		import emulate_length
 		encode,decode = emulate_length.init_emulator(bins)
 
 	elif mode == 'proxy':
 
+		with open(dir_path + "/1000/reference_char_bins", "rb") as f:
+			bins = pickle.load(f)
+
 		import emulate_char, emulate_length, conf
 		# base = number of distrobution divisions
 		base = conf.divisions
 		enc,dec = emulate_char.init_emulator(bins, base, message_length)
+
+		with open(dir_path + "/1000/reference_length_bins", "rb") as f:
+			bins = pickle.load(f)
+
 		to_length_dist, from_length_dist = emulate_length.init_emulator(bins)
 
 		if key_enc != None and key_mac != None:
