@@ -16,6 +16,7 @@ def init_emulator(bins):
 		# put in to a continous stream
 		data_stream = ""
 		for text in messages:
+			if len(text) >= 0xFFFF: raise Exception("Too long")
 			data_stream += "%04X"%(len(text))
 			data_stream += text
 
@@ -23,12 +24,14 @@ def init_emulator(bins):
 		distributed_texts = []
 		while len(data_stream) > 0:
 			length = sample(cumlative_splits)
-			if len(data_stream) > length:
+			if len(data_stream) >= length:
 				out = data_stream[:length]
 				distributed_texts.append(out)
 				data_stream = data_stream[length:]
 			else:
-				distributed_texts.append(data_stream)
+				padding_length = length-data_stream
+				padding = get_padding(padding_length)
+				distributed_texts.append(data_stream+padding)
 				data_stream = ""
 
 		return distributed_texts
@@ -40,7 +43,9 @@ def init_emulator(bins):
 
 		original_messages = []
 		while len(data_stream) > 0:
+			if len(data_stream) <= 4: break
 			length = int(data_stream[:4], 16)
+			if length == 0xFFFF: break
 			data_stream = data_stream[4:]
 			message = data_stream[:length]
 			data_stream = data_stream[length:]
@@ -51,4 +56,13 @@ def init_emulator(bins):
 	return encode, decode
 
 def sample(dist):
-	return 10# com._lies_at_index_range(dist, random.random())
+	return com._lies_at_index_range(dist, random.random())
+
+def randchar():
+	return chr(random.randrange(256))
+
+def get_padding(padding_length):
+	if padding_length >= 4:
+		return "%04X"%(0xFFFF) + "".join([randchar() for _ in range(padding_length-4)])
+	else:
+		return "".join([randchar() for _ in range(padding_length)])
