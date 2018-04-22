@@ -29,7 +29,7 @@ def init_emulator(bins):
 				distributed_texts.append(out)
 				data_stream = data_stream[length:]
 			else:
-				padding_length = length-data_stream
+				padding_length = length-len(data_stream)
 				padding = get_padding(padding_length)
 				distributed_texts.append(data_stream+padding)
 				data_stream = ""
