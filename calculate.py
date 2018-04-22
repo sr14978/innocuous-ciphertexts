@@ -42,4 +42,4 @@ if __name__ == "__main__":
 	parser.add_argument('-m', '--mode',
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
-	print(test_file(args["test"], args["reference"]))
+	print(test_file(args["test"], args["reference"], args["mode"]))
