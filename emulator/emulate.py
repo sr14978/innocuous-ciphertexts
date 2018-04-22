@@ -45,8 +45,19 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
-		import conf
 		import emulate_char
+		# base = number of distrobution divisions
+		base = 10
+		encode,decode = emulate_char.init_emulator(bins, base, message_length)
+
+	elif mode == modes['URL_LENGTH']:
+
+		import emulate_length
+		encode,decode = emulate_length.init_emulator(bins)
+
+	elif mode == 'proxy':
+
+		import emulate_char, conf
 		# base = number of distrobution divisions
 		base = conf.divisions
 		enc,dec = emulate_char.init_emulator(bins, base, message_length)
@@ -61,10 +72,6 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 			encode = enc
 			decode = dec
 
-	elif mode == modes['URL_LENGTH']:
-		import emulate_length
-		encode,decode = emulate_length.init_emulator(bins)
-
 	else:
 		raise Exception("mode not supported")
 
@@ -78,6 +85,7 @@ class Encoder:
 		self._encode = encode
 
 	def encode(self, data):
+
 		return "GET /" + self._encode(data) + " HTTP/1.1\r\n\r\n"
 
 class Decoder:
