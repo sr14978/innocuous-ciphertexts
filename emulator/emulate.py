@@ -68,7 +68,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		import emulate_char, emulate_length, conf
 		# base = number of distrobution divisions
 		base = conf.divisions
-		enc,dec = emulate_char.init_emulator(bins, base, message_length)
+		encode,decode = emulate_char.init_emulator(bins, base, message_length)
 
 		with open(dir_path + "/1000/reference_length_bins", "rb") as f:
 			bins = pickle.load(f)
@@ -89,14 +89,24 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 
 class Encoder:
-	def __init__(self, encode):
+	def __init__(self, encrypter, to_length_dist, encode):
+		self._encrypter = encrypter
+		self._to_length_dist = to_length_dist
 		self._encode = encode
 
 	def encode(self, data):
 		return "GET /" + self._encode(data) + " HTTP/1.1\r\n\r\n"
 
+	def encrypt(self, data):
+		return self._encrypter.encrypt(data)
+
+	def to_length_dist(self, input):
+		return self._to_length_dist(input)
+
 class Decoder:
-	def __init__(self, decode):
+	def __init__(self, encrypter, from_length_dist, decode):
+		self._encrypter = encrypter
+		self._from_length_dist = from_length_dist
 		self._decode = decode
 
 	def decode(self, buffer):
@@ -108,3 +118,9 @@ class Decoder:
 			buffer = buffer[index+12:]
 			msg = self._decode(packet[5:-13])
 			return msg, buffer
+
+	def decrypt(self, data):
+		return self._encrypter.decrypt(data)
+
+	def from_length_dist(self, input):
+		return self._from_length_dist(input)
