@@ -10,4 +10,4 @@ def pad(input, block_size):
 def unpad(input):
     while input[-1] != '1':
         input = input[:-1]
-    return input
+    return input[:-1]
