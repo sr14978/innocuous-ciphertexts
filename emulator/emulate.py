@@ -45,7 +45,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
-		import emulator.conf as conf
+		import conf
 		import emulate_char
 		# base = number of distrobution divisions
 		base = conf.divisions
