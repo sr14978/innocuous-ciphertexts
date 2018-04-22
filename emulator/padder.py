@@ -5,7 +5,7 @@ def pad(input, block_size):
     mod = length % block_size
     if mod != 0:
         input += '0'*(block_size-mod)
-    return inputs
+    return input
 
 def unpad(input):
     while input[-1] != '1':
