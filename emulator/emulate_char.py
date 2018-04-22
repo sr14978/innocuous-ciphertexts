@@ -23,8 +23,14 @@ def init_emulator(bins, base=10, message_length=256):
 		if input_value > (1<<message_max):
 			raise Exception("Message too long")
 		digits = deque()
+		non_zero_digit_not_found = True
 		for mod in base_powers:
 			digit = input_value/mod
+			if non_zero_digit_not_found:
+				if digit == 0:
+					continue
+				else:
+					non_zero_digit_not_found = False
 			digits.appendleft(digit)
 			input_value -= digit*mod
 		characters = []
