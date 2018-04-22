@@ -34,7 +34,7 @@ def init_emulator(bins):
 				distributed_texts.append(data_stream+padding)
 				data_stream = ""
 
-		print "length encoder", messages, " => " distributed_texts
+		print "length encoder", messages, " => ", distributed_texts
 		return distributed_texts
 
 	def decode(urls):
@@ -52,7 +52,7 @@ def init_emulator(bins):
 			data_stream = data_stream[length:]
 			original_messages.append(message)
 
-		print "length decoder", urls, " => " original_messages
+		print "length decoder", urls, " => ", original_messages
 		return original_messages
 
 	return encode, decode
