@@ -57,10 +57,11 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	elif mode == 'proxy':
 
-		import emulate_char, conf
+		import emulate_char, emulate_length, conf
 		# base = number of distrobution divisions
 		base = conf.divisions
 		enc,dec = emulate_char.init_emulator(bins, base, message_length)
+		to_length_dist, from_length_dist = emulate_length.init_emulator(bins)
 
 		if key_enc != None and key_mac != None:
 			from fte.encrypter import Encrypter
@@ -78,19 +79,20 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 	if just_URI:
 		return encode, decode
 	else:
-		return Encoder(encode), Decoder(decode)
+		return Encoder(encode, to_length_dist), Decoder(decode, from_length_dist)
 
 class Encoder:
-	def __init__(self, encode):
+	def __init__(self, encode, to_length_dist):
 		self._encode = encode
+		self._to_length_dist = to_length_dist
 
 	def encode(self, data):
-
 		return "GET /" + self._encode(data) + " HTTP/1.1\r\n\r\n"
 
 class Decoder:
-	def __init__(self, decode):
+	def __init__(self, decode, from_length_dist):
 		self._decode = decode
+		self._from_length_dist = from_length_dist
 
 	def decode(self, buffer):
 		index = buffer.find("HTTP/1.1\r\n\r\n")
