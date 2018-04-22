@@ -53,7 +53,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 		if key_enc != None and key_mac != None:
 			from fte.encrypter import Encrypter
-			import emulator.padder as padder
+			import padder
 			encrypter = Encrypter(K1=key_enc, K2=key_mac)
 			encode = lambda message: enc(encrypter.encrypt(padder.pad(message, conf.frag_plaintext_padded_length)))
 			decode = lambda message: padder.unpad(encrypter.decrypt(dec(message)))
