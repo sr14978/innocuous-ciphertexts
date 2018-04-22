@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-o', '--out', default="1000/emulated/char/1")
 	parser.add_argument('-m', '--mode',
-		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
+		choices=modes.values()+["proxy"], default=modes['CHARACTER_DISTROBUTION'])
 	parser.add_argument('-nu', '--no_use', action='store_true')
 	args = vars(parser.parse_args())
 

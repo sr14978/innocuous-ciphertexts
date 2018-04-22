@@ -15,22 +15,24 @@ modes = {
 def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTION'], reference_file=None):
 	"""Produce example encodings"""
 
+	def randchar():
+		return chr(random.randrange(33, 127))
+
 	if mode == modes['URL_LENGTH']:
 		message_length = 238
 		encode,_ = init_emulator(mode=mode)
-		def randchar():
-			return chr(random.randrange(33, 127))
+
 
 		if messages == None:
 			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
 		return encode(messages)
 
 	else:
-		message_length = 238*8
+		message_length = 238
 		encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
 
 		if messages == None:
-			messages = [random.getrandbits(message_length) for _ in range(number)]
+			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
 		return [encode(m) for m in messages]
 
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True, key_enc=None, key_mac=None):
@@ -48,7 +50,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		import emulate_char
 		# base = number of distrobution divisions
 		base = 10
-		encode,decode = emulate_char.init_emulator(bins, base, message_length)
+		return emulate_char.init_emulator(bins, base, message_length)
 
 	elif mode == modes['URL_LENGTH']:
 
@@ -56,7 +58,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 			bins = pickle.load(f)
 
 		import emulate_length
-		encode,decode = emulate_length.init_emulator(bins)
+		return emulate_length.init_emulator(bins)
 
 	elif mode == 'proxy':
 
@@ -73,23 +75,18 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 		to_length_dist, from_length_dist = emulate_length.init_emulator(bins)
 
-		if key_enc != None and key_mac != None:
-			from fte.encrypter import Encrypter
-			import padder
-			encrypter = Encrypter(K1=key_enc, K2=key_mac)
-			encode = lambda message: enc(to_length_dist(encrypter.encrypt(padder.pad(message, conf.frag_plaintext_padded_length))))
-			decode = lambda message: padder.unpad(encrypter.decrypt(from_length_dist(dec(message))))
-		else:
-			encode = enc
-			decode = dec
+		if key_enc == None or key_mac == None:
+			raise Exception("No key")
+
+		from fte.encrypter import Encrypter
+		import padder
+		encrypter = Encrypter(K1=key_enc, K2=key_mac)
+
+		return Encoder(encrypter, to_length_dist, encode), Decoder(encrypter, from_length_dist, decode)
 
 	else:
 		raise Exception("mode not supported")
 
-	if just_URI:
-		return encode, decode
-	else:
-		return Encoder(encode), Decoder(decode)
 
 class Encoder:
 	def __init__(self, encode):
