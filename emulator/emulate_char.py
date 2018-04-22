@@ -20,7 +20,7 @@ def init_emulator(bins, base=10, message_length=256):
 		for char in message:
 			input_value <<= 8
 			input_value += ord(char)
-		if input_value > message_max:
+		if input_value > (1<<message_max):
 			raise Exception("Message too long")
 		digits = deque()
 		for mod in base_powers:
