@@ -11,14 +11,16 @@ def init_emulator(bins):
 	"""Returns (encode, decode) functions that emulate the length distrobution defined by `bins`."""
 	cumlative_splits = com._create_cumlative_splits(bins)
 
-	def encode(messages):
+	def encode(message):
 
 		# put in to a continous stream
 		data_stream = ""
-		for text in messages:
-			if len(text) >= 0xFFFF: raise Exception("Too long")
-			data_stream += "%04X"%(len(text))
-			data_stream += text
+		# for text in messages:
+		text = message
+
+		if len(text) >= 0xFFFF: raise Exception("Too long")
+		data_stream += "%04X"%(len(text))
+		data_stream += text
 
 		# slice up following the distrobution
 		distributed_texts = []
@@ -51,7 +53,7 @@ def init_emulator(bins):
 			data_stream = data_stream[length:]
 			original_messages.append(message)
 
-		return original_messages
+		return original_messages[0]
 
 	return encode, decode
 

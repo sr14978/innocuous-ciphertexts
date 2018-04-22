@@ -67,8 +67,8 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 			from fte.encrypter import Encrypter
 			import padder
 			encrypter = Encrypter(K1=key_enc, K2=key_mac)
-			encode = lambda message: enc(encrypter.encrypt(padder.pad(message, conf.frag_plaintext_padded_length)))
-			decode = lambda message: padder.unpad(encrypter.decrypt(dec(message)))
+			encode = lambda message: enc(to_length_dist(encrypter.encrypt(padder.pad(message, conf.frag_plaintext_padded_length))))
+			decode = lambda message: padder.unpad(encrypter.decrypt(from_length_dist(dec(message))))
 		else:
 			encode = enc
 			decode = dec
@@ -79,20 +79,18 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 	if just_URI:
 		return encode, decode
 	else:
-		return Encoder(encode, to_length_dist), Decoder(decode, from_length_dist)
+		return Encoder(encode), Decoder(decode)
 
 class Encoder:
-	def __init__(self, encode, to_length_dist):
+	def __init__(self, encode):
 		self._encode = encode
-		self._to_length_dist = to_length_dist
 
 	def encode(self, data):
 		return "GET /" + self._encode(data) + " HTTP/1.1\r\n\r\n"
 
 class Decoder:
-	def __init__(self, decode, from_length_dist):
+	def __init__(self, decode):
 		self._decode = decode
-		self._from_length_dist = from_length_dist
 
 	def decode(self, buffer):
 		index = buffer.find("HTTP/1.1\r\n\r\n")
