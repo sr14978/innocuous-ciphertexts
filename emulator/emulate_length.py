@@ -40,7 +40,7 @@ def init_emulator(bins):
 		return distributed_texts
 
 	def decode(data_stream):
-		print "length decoder", data_stream
+		print "length decoder", data_stream, ':'.join(x.encode('hex') for x in data_stream)
 
 		original_messages = []
 		while len(data_stream) > 0:

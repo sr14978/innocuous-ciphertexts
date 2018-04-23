@@ -112,7 +112,7 @@ class Decoder:
 	def decode(self, buffer):
 		index = buffer.find("HTTP/1.1\r\n\r\n")
 		if index == -1:
-			return '', buffer
+			return None, buffer
 		else:
 			packet = buffer[:index+12]
 			buffer = buffer[index+12:]
