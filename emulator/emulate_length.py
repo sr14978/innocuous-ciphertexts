@@ -4,6 +4,7 @@
 import numpy as np
 from collections import deque
 import random
+import conf
 
 import common as com
 
@@ -23,7 +24,7 @@ def init_emulator(bins):
 		# slice up following the distrobution
 		distributed_texts = []
 		while len(data_stream) > 0:
-			length = sample(cumlative_splits)
+			length = conf.inv_char_calc(sample(cumlative_splits))
 			if len(data_stream) >= length:
 				out = data_stream[:length]
 				distributed_texts.append(out)
