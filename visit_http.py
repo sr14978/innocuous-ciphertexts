@@ -51,7 +51,7 @@ class MyHTMLParser(HTMLParser):
 
 
 if __name__ == "__main__":
-	seed_sites = ["bath", "imperial", "ucl", "bristol", "uwe"]
+	seed_sites = ["exeter", "dur", "manchester", "cam", "ox", "bath", "imperial", "ucl", "bristol", "uwe"]
 
 	visited = ["http://www.%s.ac.uk/"%(uni) for uni in seed_sites]
 	queue = deque(visited)
