@@ -42,7 +42,7 @@ def init_emulator(bins):
 
 		original_messages = []
 		while len(data_stream) > 0:
-			if len(data_stream) <= 4:
+			if len(data_stream) < 4:
 				break
 			length = int(data_stream[:4], 16)
 			if length == 0xFFFF:
