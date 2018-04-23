@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 
 """
-You can test that the emulated ciphertexts are like the reference distrobution  and is that the encoding invertable using this program.
+You can test that the emulated ciphertexts are like the adversary reference distrobution  and is that the encoding invertable using this program.
 ```bash
 ./test_emulator.py --mode <binning_method>
 eg ./test_emulator.py --mode char
@@ -28,7 +28,7 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 			return chr(random.randrange(33, 127))
 		messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(size)]
 		urls = encode(messages)
-		message_decodings,_ = decode("".join(urls))
+		message_decodings = decode(urls)
 
 	else:
 		message_length = 238
