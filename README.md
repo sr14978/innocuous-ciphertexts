@@ -46,7 +46,7 @@ There are already examples stored in
 - 1000/emulated/
 
 and a reference list to test against at
-- 1000/reference_urls
+- 1000/censor/reference_urls
 
 
 This simple web crawler program will follow links on webpages to create normal looking traffic.
@@ -58,7 +58,7 @@ This simple web crawler program will follow links on webpages to create normal l
 This program can be used to view data such as urls and distrobution historgram bins as follows
 ```bash
 ./view.py <filepath>
-eg ./view.py 1000/reference_urls
+eg ./view.py 1000/censor/reference_urls
 ```
 
 
@@ -71,15 +71,15 @@ A distrobution historgram of the urls can be computed with this bin program. You
   - URL_LENGTH:'length'
 
 ```bash
-./bins.py --in 1000/reference_urls --out 1000/reference_<method>_bins --mode <method>
-eg ./bins.py --in 1000/reference_urls --out 1000/reference_char_bins --mode char
+./bins.py --in 1000/censor/reference_urls --out 1000/censor/reference_<method>_bins --mode <method>
+eg ./bins.py --in 1000/censor/reference_urls --out 1000/censor/reference_char_bins --mode char
 ```
 
 
 You can calculate the distance between given urls and a reference distrobution with this program.
 ```bash
 ./calculate.py <url_test_file> <reference_bins>
-eg ./calculate.py 1000/fakes/1 1000/reference_char_bins
+eg ./calculate.py 1000/fakes/1 1000/censor/reference_char_bins
 ```
 
 
