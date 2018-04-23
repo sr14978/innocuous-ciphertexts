@@ -28,7 +28,7 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 			return chr(random.randrange(33, 127))
 		messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(size)]
 		urls = encode(messages)
-		message_decodings = decode(urls)
+		message_decodings,_ = decode("".join(urls))
 
 	else:
 		message_length = 238
