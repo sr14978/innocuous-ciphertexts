@@ -54,7 +54,7 @@ def init_emulator(bins):
 			data_stream = data_stream[length:]
 			original_messages.append(message)
 
-		print "length decoder", urls, " => ", original_messages
+		print "length decoder", data_stream, " => ", original_messages
 		return original_messages, data_stream
 
 	return encode, decode
