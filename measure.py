@@ -33,12 +33,12 @@ def test(size, folder, index=None, mode=bins.default_mode):
 
 def test_raw(urls, size=1000, mode=bins.default_mode):
 	"""Compares the given url's distance to the reference distrobtion with the threshold."""
-	with open(str(size) + "/threshold_" + mode, "r") as f:
+	with open(str(size) + "/censor/threshold_" + mode, "r") as f:
 		threshold = float(f.readline())
 
 	val = calc.test(
 		urls,
-		str(size) + "/reference_" + mode + "_bins",
+		str(size) + "/censor/reference_" + mode + "_bins",
 		mode
 	)
 

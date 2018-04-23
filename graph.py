@@ -32,7 +32,7 @@ def display(size=1000, mode=bins.default_mode):
 
 	test = ft.partial(
 		calc.test_file,
-		reference_file= str(size) + "/reference_" + mode + "_bins",
+		reference_file= str(size) + "/censor/reference_" + mode + "_bins",
 		mode=mode
 	)
 

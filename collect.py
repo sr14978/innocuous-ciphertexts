@@ -14,7 +14,7 @@ There are already examples stored in
 - 1000/emulated/
 
 and a reference list to test against at
-- 1000/reference_urls
+- 1000/censor/reference_urls
 """
 
 import pyshark

@@ -40,7 +40,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 	if reference_file == None:
 		import os.path as path
 		dir_path = path.abspath(path.join(__file__ ,"../.."))
-		reference_file = dir_path + "/1000/reference_" + mode + "_bins"
+		reference_file = dir_path + "/1000/censor/reference_" + mode + "_bins"
 
 	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
@@ -62,7 +62,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 	elif mode == 'proxy':
 
-		with open(dir_path + "/1000/reference_char_bins", "rb") as f:
+		with open(dir_path + "/1000/censor/reference_char_bins", "rb") as f:
 			bins = pickle.load(f)
 
 		import emulate_char, emulate_length, conf
@@ -70,7 +70,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		base = conf.divisions
 		encode,decode = emulate_char.init_emulator(bins, base, message_length)
 
-		with open(dir_path + "/1000/reference_length_bins", "rb") as f:
+		with open(dir_path + "/1000/censor/reference_length_bins", "rb") as f:
 			bins = pickle.load(f)
 
 		to_length_dist, from_length_dist = emulate_length.init_emulator(bins)

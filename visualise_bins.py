@@ -24,7 +24,7 @@ def main(mode=bins.modes['CHARACTER_DISTROBUTION']):
 			with open("1000/"+folder+"/"+str(i), 'rb') as f:
 				yield bins.sort(pickle.load(f), mode=mode, smoothed=False)
 
-	with open("1000/reference_"+mode+"_bins", "rb") as f:
+	with open("1000/censor/reference_"+mode+"_bins", "rb") as f:
 		reference = pickle.load(f)
 
 	fakes = get("fakes")

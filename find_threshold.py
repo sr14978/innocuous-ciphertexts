@@ -48,7 +48,7 @@ def calculate(size=1000, mode=bins.default_mode, enable_graphs=True):
 		normal_path + p for p in os.listdir(normal_path) if p != "results"]
 	test = ft.partial(
 		calc.test_file,
-		reference_file=str(size) + "/reference_" + mode + "_bins",
+		reference_file=str(size) + "/censor/reference_" + mode + "_bins",
 		mode=mode
 	)
 
@@ -83,6 +83,6 @@ if __name__ == "__main__":
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
 
-	with open(args["size"] + "/threshold_" + args["mode"], "w") as f:
+	with open(args["size"] + "/censor/threshold_" + args["mode"], "w") as f:
 		results = calculate(args["size"], args["mode"])
 		f.write(str(results))

@@ -15,7 +15,7 @@ def main(collect_new, enable_graphs, enable_emulations):
 	if collect_new:
 		print "Press enter to collect reference urls"
 		raw_input()
-		collect.main('1000/reference_urls')
+		collect.main('1000/censor/reference_urls')
 
 		print "Press enter to collect fakes."
 		raw_input()
@@ -29,15 +29,15 @@ def main(collect_new, enable_graphs, enable_emulations):
 
 	for mode in bins.modes.values():
 		print "Creating " + mode + " histogram."
-		hist = bins.sort_file("1000/reference_urls", mode)
-		with open("1000/reference_" + mode + "_bins", 'wb') as f:
+		hist = bins.sort_file("1000/censor/reference_urls", mode)
+		with open("1000/censor/reference_" + mode + "_bins", 'wb') as f:
 			print str(hist)[:100], "...", str(hist)[-100:]
 			pickle.dump(hist, f)
 
 	for mode in bins.modes.values():
 		print "Calculating " + mode + " threshold"
 		results = find_threshold.calculate(mode=mode, enable_graphs=enable_graphs)
-		with open("1000/threshold_" + mode, "w") as f:
+		with open("1000/censor/threshold_" + mode, "w") as f:
 			print str(results)
 			f.write(str(results))
 
