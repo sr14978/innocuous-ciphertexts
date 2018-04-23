@@ -30,26 +30,18 @@ def init_emulator(bins):
 				distributed_texts.append(out)
 				data_stream = data_stream[length:]
 			else:
-				# padding_length = length-len(data_stream)
-				# padding = get_padding(padding_length)
-				# distributed_texts.append(data_stream+padding)
 				distributed_texts.append(data_stream)
 				data_stream = ""
 
-		print "length encoder", messages, " => ", distributed_texts
 		return distributed_texts
 
 	def decode(data_stream):
-		print "length decoder", data_stream, ':'.join(x.encode('hex') for x in data_stream)
 
 		original_messages = []
 		while len(data_stream) > 0:
 			if len(data_stream) < 4:
 				break
 			length = int(data_stream[:4], 16)
-			# if length == 0xFFFF:
-			# 	data_stream = ''
-			# 	break
 			if len(data_stream) < length + 4:
 				break
 			data_stream = data_stream[4:]
@@ -57,7 +49,6 @@ def init_emulator(bins):
 			data_stream = data_stream[length:]
 			original_messages.append(message)
 
-		print " => ", original_messages
 		return original_messages, data_stream
 
 	return encode, decode

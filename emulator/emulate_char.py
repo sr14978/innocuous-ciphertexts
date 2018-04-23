@@ -41,7 +41,6 @@ def init_emulator(bins, base=10, message_length=256):
 			char = chr(index + 30)	# bin offset
 			characters.append(char)
 
-		print "encoding", message, ':'.join(x.encode('hex') for x in message) , "".join(characters)[:10], "..."
 		return "".join(characters)
 
 
@@ -59,10 +58,7 @@ def init_emulator(bins, base=10, message_length=256):
 		while output_value != 0xFF:
 			message.appendleft(chr(output_value & 0xFF))
 			output_value >>= 8
-		# while len(message) < message_length:
-		# 	message.appendleft('\x00')
 
-		print "decoding", url[:10], "...", "".join(message), ':'.join(x.encode('hex') for x in message)
 		return "".join(message)
 
 	return encode, decode
