@@ -51,9 +51,9 @@ def init_emulator(bins, base=10, message_length=256):
 			index = ord(char) - 30
 			value,_ = cumlative_splits[index]
 			digit = com._lies_at_index_range(digit_splits, value)
-			digits.appendleft(digit)
+			digits.append(digit)
 		output_value = 0
-		for digit,mod in zip(digits, base_powers):
+		for digit,mod in zip(digits, base_powers[::-1]):
 			output_value += digit*mod
 		message = deque()
 		while output_value != 0xFF:
