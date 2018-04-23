@@ -39,7 +39,8 @@ def init_emulator(bins):
 		return distributed_texts
 
 	def decode(data_stream):
-
+		print "length decoder", data_stream
+		
 		original_messages = []
 		while len(data_stream) > 0:
 			if len(data_stream) < 4:
@@ -55,7 +56,7 @@ def init_emulator(bins):
 			data_stream = data_stream[length:]
 			original_messages.append(message)
 
-		print "length decoder", data_stream, " => ", original_messages
+		print " => ", original_messages
 		return original_messages, data_stream
 
 	return encode, decode
