@@ -30,9 +30,10 @@ def init_emulator(bins):
 				distributed_texts.append(out)
 				data_stream = data_stream[length:]
 			else:
-				padding_length = length-len(data_stream)
-				padding = get_padding(padding_length)
-				distributed_texts.append(data_stream+padding)
+				# padding_length = length-len(data_stream)
+				# padding = get_padding(padding_length)
+				# distributed_texts.append(data_stream+padding)
+				distributed_texts.append(data_stream)
 				data_stream = ""
 
 		print "length encoder", messages, " => ", distributed_texts
@@ -40,15 +41,15 @@ def init_emulator(bins):
 
 	def decode(data_stream):
 		print "length decoder", data_stream
-		
+
 		original_messages = []
 		while len(data_stream) > 0:
 			if len(data_stream) < 4:
 				break
 			length = int(data_stream[:4], 16)
-			if length == 0xFFFF:
-				data_stream = ''
-				break
+			# if length == 0xFFFF:
+			# 	data_stream = ''
+			# 	break
 			if len(data_stream) < length + 4:
 				break
 			data_stream = data_stream[4:]
