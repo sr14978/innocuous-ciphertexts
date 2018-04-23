@@ -4,7 +4,7 @@ from fte.encrypter import Encrypter
 
 size_of_char = 0x100
 divisions = 15
-URI_length = 256
+URI_length = 500
 
 wrapped_length = URI_length + 18
 
