@@ -53,5 +53,5 @@ if __name__ == "__main__":
 		choices=bins.modes.values(), default=bins.default_mode)
 	args = vars(parser.parse_args())
 
-	result = test(args["size"], args["folder"], args["index"])
+	result = test(args["size"], args["folder"], args["index"], args["mode"])
 	print("Fake" if result else "Normal")
