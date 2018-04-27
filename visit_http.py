@@ -66,6 +66,8 @@ if __name__ == "__main__":
 			request = urllib2.urlopen(url)
 			if request.getcode() != 200:
 				continue
+			if request.geturl().startswith("https"):
+				continue
 			if len(queue) > 10000:
 				continue
 			if 'text/html' in request.headers.getheader('content-type'):
