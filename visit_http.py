@@ -36,6 +36,8 @@ class MyHTMLParser(HTMLParser):
 			return
 		elif link.startswith("http"):
 			pass
+		elif link.startswith("//"):
+			link = "http:" + link
 		elif link.startswith("/"):
 			obj = urlparse.urlparse(self.url)
 			base_url = obj.scheme + "://" + obj.hostname
@@ -43,7 +45,7 @@ class MyHTMLParser(HTMLParser):
 		else:
 			obj = urlparse.urlparse(self.url)
 			path = obj.path[:-1] if obj.path[-1] == '/' else obj.path
-			base_url = obj.scheme + "://" + obj.hostname + path
+			base_url = "http://" + obj.hostname + path
 			link = base_url + '/' + link
 		if link not in visited:
 			queue.appendleft(link)
