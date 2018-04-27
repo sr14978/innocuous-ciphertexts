@@ -32,6 +32,8 @@ class MyHTMLParser(HTMLParser):
 
 		if link.startswith("https"):
 			return
+		elif link.startswith("#"):
+			return
 		elif "javascript:void(0)" in link:
 			return
 		elif link.startswith("http"):
