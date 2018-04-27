@@ -35,8 +35,7 @@ def main(output_file, sample_size=1000, continue_flag=False):
 
 	capture = pyshark.LiveCapture(
 		interface="ens33",
-		display_filter='http && http.request.method == \
-						"GET" && http.request.uri != "/"'
+		display_filter='http && http.request.method == "GET"'
 	)
 
 	with open(output_file, "rb") as f:
@@ -46,7 +45,7 @@ def main(output_file, sample_size=1000, continue_flag=False):
 
 	for packet in capture.sniff_continuously(packet_count=sample_size):
 		if len(urls) > sample_size: break
-		urls.append(packet.http.get_field_value("request_uri")[1:])
+		urls.append(packet.http.get_field_value("request_uri"))
 		with open(output_file, "wb") as f:
 			pickle.dump(urls, f)
 		out.write("\rread %i samples"%(len(urls))); out.flush()
