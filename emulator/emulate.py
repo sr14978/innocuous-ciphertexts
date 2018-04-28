@@ -45,12 +45,12 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 		return [encode(m) for m in messages]
 
 	elif mode == modes['CHARACTER_DISTROBUTION']:
-                message_length = 238
-                encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
+		message_length = 238
+		encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
 
-                if messages == None:
-                        messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
-                return [encode(m) for m in messages]
+		if messages == None:
+			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
+		return [encode(m) for m in messages]
 
 
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True, key_enc=None, key_mac=None):
