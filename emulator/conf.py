@@ -3,11 +3,12 @@ import math
 from fte.encrypter import Encrypter
 
 def inv_char_calc(output):
-    return int(output*math.log(divisions)/math.log(size_of_char)) -1
+    return int(output*math.log(divisions)/math.log(size_of_char)/(pattern_length >> 3)) -1
 
 size_of_char = 0x100
 divisions = 15
 URI_length = 500
+pattern_length = 8
 
 wrapped_length = URI_length + 18
 
