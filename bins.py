@@ -31,7 +31,7 @@ modes = {
 	'URL_LENGTH':'length'
 }
 
-pattern_length = 40
+pattern_length = 32
 default_mode = modes['CHARACTER_DISTROBUTION']
 
 def sort_file(filename_in, mode, smoothed=True, graph=False):

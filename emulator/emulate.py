@@ -67,7 +67,8 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		import emulate_pattern
 		# base = number of distrobution divisions
 		base = 100
-		return emulate_pattern.init_emulator(bins, base, message_length)
+		pattern_length = 32
+		return emulate_pattern.init_emulator(bins, base, message_length, pattern_length)
 
 	elif mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
