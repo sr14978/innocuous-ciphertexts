@@ -30,9 +30,17 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 		urls = encode(messages)
 		message_decodings = decode(urls)
 
+	elif mode == modes['PATTERN_DISTROBUTION']:
+		message_length = 238
+		messages = [Random.get_random_bytes(message_length) for _ in range(size)]
+
+		encode,decode = emulator.init(mode=modes['PATTERN_DISTROBUTION'], message_length=message_length)
+
+		urls = [encode(m) for m in messages]
+		message_decodings = [decode(u) for u in urls]
+
 	else:
 		message_length = 238
-		Random.get_random_bytes(5)
 		messages = [Random.get_random_bytes(message_length) for _ in range(size)]
 
 		encode,decode = emulator.init(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
@@ -43,8 +51,8 @@ def test(mode=modes['CHARACTER_DISTROBUTION']):
 	is_inverted_correctly = all([a==b for a,b in zip(messages, message_decodings)])
 	print("Invertable" if is_inverted_correctly else "Not Invertable")
 
-	result = measure.test_raw(urls, size, mode=mode)
-	print("Fake" if result else "Normal")
+	# result = measure.test_raw(urls, size, mode=mode)
+	# print("Fake" if result else "Normal")
 
 
 if __name__ == "__main__":
