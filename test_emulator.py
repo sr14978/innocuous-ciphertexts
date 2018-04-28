@@ -16,6 +16,7 @@ import emulator
 import measure
 
 from bins import modes
+import timeit
 
 def test(mode=modes['CHARACTER_DISTROBUTION']):
 
@@ -60,4 +61,6 @@ if __name__ == "__main__":
 	parser.add_argument('-m', '--mode',
 		choices=modes.values(), default=modes['CHARACTER_DISTROBUTION'])
 	args = vars(parser.parse_args())
-	test(args["mode"])
+	print timeit.timeit(lambda: test(args["mode"]), number=1), "sec"
+	# import cProfile; p = cProfile.Profile()
+	# p.run('test(args["mode"])').print_stats("time")

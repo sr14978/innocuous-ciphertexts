@@ -31,7 +31,7 @@ modes = {
 	'URL_LENGTH':'length'
 }
 
-pattern_length = 8
+pattern_length = 40
 default_mode = modes['CHARACTER_DISTROBUTION']
 
 def sort_file(filename_in, mode, smoothed=True, graph=False):
@@ -46,7 +46,8 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 
 	if mode == modes['PATTERN_DISTROBUTION']:
 
-		bins = [0] * (1<<pattern_length)
+		# bins = [0] * (1<<pattern_length)
+		bins = {}
 		for url in urls:
 			bit_stream = [b for c in url for b in to_bits(ord(c))]
 			pattern_stream = []
@@ -54,9 +55,12 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 				pattern_stream.append(evaluate(bit_stream[:pattern_length]))
 				bit_stream = bit_stream[pattern_length:]
 			for pattern in pattern_stream:
-				bins[pattern] += 1
+				if pattern in bins:
+					bins[pattern] += 1
+				else:
+					bins[pattern] = 1
 		# bins = bins[int(0.2e7):int(0.9e7)]
-		bins = bins[30:130]
+		# bins = bins[30:130]
 
 	elif mode == modes['CHARACTER_DISTROBUTION']:
 
@@ -117,10 +121,16 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 		smoothing_value = smoothing_proportion/len(bins)
 		bins = [smoothing_value + float(i)/smoothed_total for i in bins]
 	else:
-		bins = [float(i)/total for i in bins]
+		if type(bins) == list:
+			bins = [float(i)/total for i in bins]
+		elif type(bins) == dict:
+			total = sum(bins.values())
+			bins = {key:float(value)/total for (key,value) in bins.items()}
+		else:
+			raise Exception()
 
 	if graph:
-		plt.plot(np.cumsum(bins))
+		plt.plot(cumsum(bins))
 		plt.show()
 
 	return bins
@@ -134,6 +144,20 @@ def evaluate(bits):
 		sum <<= 1
 		sum += bit
 	return sum
+
+def cumsum(bins):
+	if type(bins) == list:
+		return np.cumsum(bins)
+	elif type(bins) == dict:
+		values = []
+		for i in range(1<<pattern_length):
+			if i in bins:
+				values.append(bins[i])
+			else:
+				values.append(0)
+		return values
+	else:
+		raise Exception()
 
 
 if __name__ == "__main__":

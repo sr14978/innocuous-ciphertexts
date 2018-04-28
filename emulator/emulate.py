@@ -61,13 +61,12 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		reference_file = dir_path + "/1000/adversary/reference_" + mode + "_bins"
 
 	if mode == modes['PATTERN_DISTROBUTION']:
-		print "start"
 		with open(reference_file, "rb") as f:
 			bins = pickle.load(f)
 
 		import emulate_pattern
 		# base = number of distrobution divisions
-		base = 10
+		base = 100
 		return emulate_pattern.init_emulator(bins, base, message_length)
 
 	elif mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
@@ -96,7 +95,8 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		import emulate_pattern
 		# base = number of distrobution divisions
 		base = 10
-		return emulate_pattern.init_emulator(bins, base, message_length)
+		pattern_length = 40
+		return emulate_pattern.init_emulator(bins, base, message_length, pattern_length)
 
 	elif mode == 'proxy':
 
