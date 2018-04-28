@@ -55,8 +55,8 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 				bit_stream = bit_stream[pattern_length:]
 			for pattern in pattern_stream:
 				bins[pattern] += 1
-		bins = bins[int(0.2e7):int(0.9e7)]
-		# bins = bins[30:130]
+		# bins = bins[int(0.2e7):int(0.9e7)]
+		bins = bins[30:130]
 
 	elif mode == modes['CHARACTER_DISTROBUTION']:
 

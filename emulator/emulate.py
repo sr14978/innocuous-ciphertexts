@@ -4,6 +4,7 @@ import pickle
 import random
 
 modes = {
+	'PATTERN_DISTROBUTION':'pattern',
 	'CHARACTER_DISTROBUTION':'char',
 	'SLASHES_FREQUENCY':'slash',
 	'INTER_SLASH_DIST':'dist',
@@ -27,7 +28,15 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
 		return encode(messages)
 
-	else:
+	elif mode == modes['PATTERN_DISTROBUTION']:
+		message_length = 238
+		encode,_ = init_emulator(mode=modes['PATTERN_DISTROBUTION'], message_length=message_length)
+
+		if messages == None:
+			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
+		return [encode(m) for m in messages]
+
+	elif mode == modes['CHARACTER_DISTROBUTION']:
 		message_length = 238
 		encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
 
@@ -59,6 +68,16 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 
 		import emulate_length
 		return emulate_length.init_emulator(bins)
+
+	elif mode == modes['PATTERN_DISTROBUTION']:
+		print "start"
+		with open(reference_file, "rb") as f:
+			bins = pickle.load(f)
+
+		import emulate_pattern
+		# base = number of distrobution divisions
+		base = 10
+		return emulate_pattern.init_emulator(bins, base, message_length)
 
 	elif mode == 'proxy':
 
