@@ -22,6 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 modes = {
+	'PATTERN_DISTROBUTION':'pattern',
 	'CHARACTER_DISTROBUTION':'char',
 	'SLASHES_FREQUENCY':'slash',
 	'INTER_SLASH_DIST':'dist',
@@ -30,6 +31,7 @@ modes = {
 	'URL_LENGTH':'length'
 }
 
+pattern_length = 8
 default_mode = modes['CHARACTER_DISTROBUTION']
 
 def sort_file(filename_in, mode, smoothed=True, graph=False):
@@ -41,7 +43,22 @@ def sort_file(filename_in, mode, smoothed=True, graph=False):
 
 def sort(urls, mode=default_mode, smoothed=True, graph=False):
 	"""calculates freuqency bins from `urls`"""
-	if mode == modes['CHARACTER_DISTROBUTION']:
+
+	if mode == modes['PATTERN_DISTROBUTION']:
+
+		bins = [0] * (1<<pattern_length)
+		for url in urls:
+			bit_stream = [b for c in url for b in to_bits(ord(c))]
+			pattern_stream = []
+			while len(bit_stream) > 0:
+				pattern_stream.append(evaluate(bit_stream[:pattern_length]))
+				bit_stream = bit_stream[pattern_length:]
+			for pattern in pattern_stream:
+				bins[pattern] += 1
+		bins = bins[int(0.2e7):int(0.9e7)]
+		# bins = bins[30:130]
+
+	elif mode == modes['CHARACTER_DISTROBUTION']:
 
 		bins = [0] * 256
 		for url in urls:
@@ -107,6 +124,16 @@ def sort(urls, mode=default_mode, smoothed=True, graph=False):
 		plt.show()
 
 	return bins
+
+def to_bits(byte):
+	return [(byte>>i)&1 for i in range(8)]
+
+def evaluate(bits):
+	sum = 0
+	for bit in reversed(bits):
+		sum <<= 1
+		sum += bit
+	return sum
 
 
 if __name__ == "__main__":
