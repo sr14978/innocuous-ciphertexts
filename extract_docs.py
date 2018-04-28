@@ -40,6 +40,16 @@ sudo usermod -aG wireshark $USER
 ```bash
 sudo apt-get install python-matplotlib
 ```
+- (for web crawler only) install geckodriver by downloading archive, extracting the executable and putting it on your PATH
+REPO: https://github.com/mozilla/geckodriver/releases
+```bash
+sudo mv geckodriver /usr/bin/
+```
+
+- (for web crawler only) install selenium web automation framework
+```bash
+pip install selenium --user
+```
 
 - install python pip
 ```bash
