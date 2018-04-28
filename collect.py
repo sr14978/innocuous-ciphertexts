@@ -44,7 +44,7 @@ def main(output_file, sample_size=1000, continue_flag=False):
 	out.write("read %i samples"%(len(urls))); out.flush()
 
 	for packet in capture.sniff_continuously(packet_count=sample_size):
-		if len(urls) > sample_size: break
+		if len(urls) >= sample_size: break
 		urls.append(packet.http.get_field_value("request_uri"))
 		with open(output_file, "wb") as f:
 			pickle.dump(urls, f)
