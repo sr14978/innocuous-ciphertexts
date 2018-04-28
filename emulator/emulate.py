@@ -38,11 +38,20 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 
 	elif mode == modes['CHARACTER_DISTROBUTION']:
 		message_length = 238
-		encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
+		encode,_ = init_emulator(mode=modes['PATTERN_DISTROBUTION'], message_length=message_length)
 
 		if messages == None:
 			messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
 		return [encode(m) for m in messages]
+
+	elif mode == modes['CHARACTER_DISTROBUTION']:
+                message_length = 238
+                encode,_ = init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=message_length)
+
+                if messages == None:
+                        messages = ["".join([randchar() for _ in range(message_length)]) for _ in range(number)]
+                return [encode(m) for m in messages]
+
 
 def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True, key_enc=None, key_mac=None):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
@@ -51,17 +60,27 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 		dir_path = path.abspath(path.join(__file__ ,"../.."))
 		reference_file = dir_path + "/1000/adversary/reference_" + mode + "_bins"
 
-	if mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
-
+	if mode == modes['PATTERN_DISTROBUTION']:
+		print "start"
 		with open(reference_file, "rb") as f:
 			bins = pickle.load(f)
 
-		import emulate_char
+		import emulate_pattern
 		# base = number of distrobution divisions
 		base = 10
-		return emulate_char.init_emulator(bins, base, message_length)
+		return emulate_pattern.init_emulator(bins, base, message_length)
 
-	elif mode == modes['URL_LENGTH']:
+	elif mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
+
+                with open(reference_file, "rb") as f:
+                        bins = pickle.load(f)
+
+                import emulate_char
+                # base = number of distrobution divisions
+                base = 10
+                return emulate_char.init_emulator(bins, base, message_length)
+
+        elif mode == modes['URL_LENGTH']:
 
 		with open(reference_file, "rb") as f:
 			bins = pickle.load(f)
