@@ -11,29 +11,19 @@ from collections import deque
 from HTMLParser import HTMLParser
 import urlparse
 import traceback, sys
-import urllib2
+from selenium import webdriver
 
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
-		if tag == 'a':
-			attr = "href"
-		elif tag == "img":
-			attr = "src"
-		elif tag == "script":
-			attr = "src"
-		elif tag == "link":
-			attr = "href"
-		else:
+		if tag != 'a':
 			return
 		if self.count > 5:
-                        return
-                self.count += 1
+			return
+		self.count += 1
 		attrs = dict(attrs)
-		if attr not in attrs:
+		if "href" not in attrs:
 			return
-		link = attrs[attr]
-		if link == "":
-			return
+		link = attrs["href"]
 
 		if link.startswith("https"):
 			return
@@ -72,24 +62,24 @@ if __name__ == "__main__":
 	queue = deque(visited)
 	parser = MyHTMLParser()
 
+	browser = webdriver.Firefox()
+
 	while len(queue) > 0:
 		url = queue.pop()
 		print "queue", len(queue)
 		print "visiting", url
 		try:
-			request = urllib2.urlopen(url)
-			if request.getcode() != 200:
-				continue
-			if request.geturl().startswith("https"):
+			browser.get(url)
+
+			if browser.current_url.startswith("https"):
 				print "redirected to https"
 				continue
 			if len(queue) > 10000:
 				continue
-			if 'text/html' in request.headers.getheader('content-type'):
-				contents = request.read()
-				parser.count = 0
-				parser.url = url
-				parser.feed(contents)
+			contents = browser.page_source
+			parser.count = 0
+			parser.url = url
+			parser.feed(contents)
 
 		except:
 			traceback.print_exc(file=sys.stdout)
