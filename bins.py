@@ -34,7 +34,6 @@ modes = {
 	'URL_LENGTH':'length'
 }
 
-pattern_length = conf.pattern_length
 default_mode = modes['CHARACTER_DISTROBUTION']
 
 def sort_file(filename_in, mode, smoothed=True, graph=False):
@@ -47,6 +46,7 @@ def sort_file(filename_in, mode, smoothed=True, graph=False):
 def sort(urls, mode=default_mode, smoothed=True, graph=False):
 	"""calculates freuqency bins from `urls`"""
 
+	pattern_length = conf.pattern_length
 	if mode == modes['PATTERN_DISTROBUTION']:
 
 		# bins = [0] * (1<<pattern_length)
@@ -153,7 +153,7 @@ def cumsum(bins):
 		return np.cumsum(bins)
 	elif type(bins) == dict:
 		values = []
-		for i in range(1<<pattern_length):
+		for i in range(1<<conf.pattern_length):
 			if i in bins:
 				values.append(bins[i])
 			else:
