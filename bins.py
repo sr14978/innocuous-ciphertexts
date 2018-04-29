@@ -2,6 +2,7 @@
 
 """
 A distrobution historgram of the urls can be computed with this bin program. You can choose one of the following methods:
+  - PATTERN_DISTROBUTION:'pattern',
   - CHARACTER_DISTROBUTION:'char'
   - SLASHES_FREQUENCY:'slash'
   - INTER_SLASH_DIST:'dist',
