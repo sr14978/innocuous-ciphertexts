@@ -21,6 +21,8 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 
+import emulator.conf as conf
+
 modes = {
 	'PATTERN_DISTROBUTION':'pattern',
 	'CHARACTER_DISTROBUTION':'char',
@@ -31,7 +33,7 @@ modes = {
 	'URL_LENGTH':'length'
 }
 
-pattern_length = 32
+pattern_length = conf.pattern_length
 default_mode = modes['CHARACTER_DISTROBUTION']
 
 def sort_file(filename_in, mode, smoothed=True, graph=False):
