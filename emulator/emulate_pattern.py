@@ -5,13 +5,17 @@ import numpy as np
 from collections import deque
 import random
 import itertools
+import math
 
 import common as com
 import common_dict as comd
+import conf
 
-def init_emulator(bins, base=100, message_length=256, pattern_length=32):
+def init_emulator(bins, base=None, message_length=256, pattern_length=conf.pattern_length):
 	"""Returns (encode, decode) functions that emulate the character distrobution defined by `bins`."""
 	message_max = (message_length+1)*8
+	base = conf.divisions
+	# print len(bins), base, message_max/8, int(message_max/8 * math.log(0x100)/math.log(base) * pattern_length/8)
 	cumlative_splits = comd._create_cumlative_splits(bins)
 	comd._set_dist(cumlative_splits)
 	digit_splits = comd._create_digit_splits(bins, base, cumlative_splits)
@@ -47,6 +51,8 @@ def init_emulator(bins, base=100, message_length=256, pattern_length=32):
 			for j in pattern_length_rng:
 				bit_stream[i] = ((value>>j)&1)
 				i += 1
+		offset = len(bit_stream) & 0b111
+		if offset != 0: bit_stream += itertools.repeat(0, 8-offset)
 		return "".join(chr(evaluate8(chunk)) for chunk in group(bit_stream, 8))
 
 	def group(xs, n): return itertools.izip(*(itertools.islice(xs, i, None, n) for i in xrange(n)))
@@ -60,18 +66,16 @@ def init_emulator(bins, base=100, message_length=256, pattern_length=32):
 			for bit in reversed(bits): sum = (sum << 1) | bit
 			return sum
 
-	def to_char_bits(value):
+	def char_to_bits(value):
 		return [(value>>i)&1 for i in xrange(8)]
 
 
 	def decode(url):
-
-		bit_stream = [b for c in url for b in to_char_bits(ord(c))]
+		bit_stream = [b for c in url for b in char_to_bits(ord(c))]
 		digits = [evaluate(chunk) for chunk in group(bit_stream, pattern_length)]
 		l = len(digits)
 		i = 0
 		while i < l:
-			# digits[i] = com._lies_at_index_range(digit_splits, cumlative_splits[digits[i] - 30][0])
 			digits[i] = com._lies_at_index_range(digit_splits, cumlative_splits[digits[i]][0])
 			i+=1
 		output_value = 0
