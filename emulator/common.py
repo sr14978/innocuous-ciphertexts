@@ -23,6 +23,7 @@ def _create_digit_splits(bins, base, cumlative_splits):
 		# round lower digit_split to the max of the cumlative_splits bin in which it resides
 		_,lower = cumlative_splits[_lies_at_index_range(cumlative_splits,running_total)]
 		running_total += digit_splits_width
+		assert lower < running_total
 		digit_splits.append((lower, running_total))
 
 	# ensure the last max is rounded up
