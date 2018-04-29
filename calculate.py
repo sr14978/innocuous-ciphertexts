@@ -33,7 +33,6 @@ def test(urls, reference_file, mode=bins.default_mode):
 	# Fisher's exact test
 
 	if type(test) == dict:
-		print "one"
 		assert type(reference) == dict
 		for k in test:
 			if k not in reference:
