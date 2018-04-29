@@ -45,7 +45,7 @@ def get_emulations(messages=None, number=1000, mode=modes['CHARACTER_DISTROBUTIO
 		return [encode(m) for m in messages]
 
 
-def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, reference_file=None, just_URI=True, key_enc=None, key_mac=None):
+def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], reference_file=None, message_length=256, key_enc=None, key_mac=None):
 	"""construct encode and decode fuctions that emulate the `bins` distrobution"""
 	if reference_file == None:
 		import os.path as path
@@ -57,39 +57,25 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], message_length=64*8, ref
 			bins = pickle.load(f)
 
 		import emulate_pattern
-		# base = number of distrobution divisions
-		base = 100
-		pattern_length = 32
-		return emulate_pattern.init_emulator(bins, base, message_length, pattern_length)
+		return emulate_pattern.init_emulator(bins, message_length=message_length)
 
 	elif mode == modes['CHARACTER_DISTROBUTION'] or mode == modes['INTER_SLASH_DIST'] or mode == modes['FIRST_LETTER'] or mode == modes['RANDOM_LETTER']:
 
-                with open(reference_file, "rb") as f:
-                        bins = pickle.load(f)
+		with open(reference_file, "rb") as f:
+			bins = pickle.load(f)
 
-                import emulate_char
-                # base = number of distrobution divisions
-                base = 10
-                return emulate_char.init_emulator(bins, base, message_length)
+		import emulate_char
+		# base = number of distrobution divisions
+		base = 10
+		return emulate_char.init_emulator(bins, base, message_length)
 
-        elif mode == modes['URL_LENGTH']:
+	elif mode == modes['URL_LENGTH']:
 
 		with open(reference_file, "rb") as f:
 			bins = pickle.load(f)
 
 		import emulate_length
 		return emulate_length.init_emulator(bins)
-
-	elif mode == modes['PATTERN_DISTROBUTION']:
-		print "start"
-		with open(reference_file, "rb") as f:
-			bins = pickle.load(f)
-
-		import emulate_pattern
-		# base = number of distrobution divisions
-		base = 10
-		pattern_length = 40
-		return emulate_pattern.init_emulator(bins, base, message_length, pattern_length)
 
 	elif mode == 'proxy':
 
