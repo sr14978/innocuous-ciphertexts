@@ -32,6 +32,30 @@ def test(urls, reference_file, mode=bins.default_mode):
 
 	# Fisher's exact test
 
+	if type(test) == dict:
+		print "one"
+		assert type(reference) == dict
+		for k in test:
+			if k not in reference:
+				reference[k] = 0
+		for k in reference:
+			if k not in test:
+				test[k] = 0
+		# smoothing
+		total = sum(reference.values())
+		smoothing_proportion = 1e-2
+		smoothed_total = total / (1 - smoothing_proportion)
+		smoothing_value = smoothing_proportion/len(reference)
+		reference = {key:smoothing_value + float(value)/smoothed_total for (key,value) in reference.items()}
+
+		test_l = []
+		ref_l = []
+		for key in reference.keys():
+			test_l.append(test[key])
+			ref_l.append(reference[key])
+		test = test_l
+		reference = ref_l
+
 	v = chisquare(test, reference).statistic
 	return v
 
