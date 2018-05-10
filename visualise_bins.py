@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from itertools import repeat
 from itertools import chain
 import argparse
+from matplotlib2tikz import save as save
 
 import bins
 
@@ -30,10 +31,15 @@ def main(mode=bins.modes['CHARACTER_DISTROBUTION']):
 	fakes = get("fakes")
 	normals = get("normals")
 
-	pairs = [(fakes,'m'), (normals,'g')]
+	pairs = [(normals,'g'),  (fakes, 'm')]
 	args = list(chain(*[colour(*t) for t in pairs])) + [reference, 'k']
 
+	# reference = np.cumsum(reference)
+	# plt.bar(range(len(reference)),reference)
 	plt.plot(*args)
+	plt.xlabel("Bin Number")
+	plt.ylabel("Proportion")
+	# save('dist_bar.tex')
 	plt.show()
 
 def interleave(a,b):
