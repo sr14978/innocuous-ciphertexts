@@ -40,7 +40,17 @@ def display(size=1000, mode=bins.default_mode):
 	normals = [test(p) for p in normal_paths]
 	emulateds = [test(p) for p in emulated_paths]
 
+	# fake = np.mean(fakes)
+	# normal = np.mean(normals)
+	# emulated = np.mean(emulateds)
+
+	# print "fake", fake, fakes
+	# print "normal", normal, normals
+	# print "emualted", emulated, emulateds
+
 	plt.plot(fakes, 'ro', normals, 'go', emulateds, 'bx')
+	plt.xlabel("Sample Index")
+	plt.ylabel("Statistic Value")
 	plt.show()
 
 if __name__ == "__main__":
