@@ -9,6 +9,11 @@ eg ./calculate.py 1000/fakes/1 1000/censor/reference_char_bins
 """
 
 from scipy.stats import chisquare
+from gtest import gtest as gtest
+from scipy.stats import entropy as KL_divergence
+from numpy.linalg import norm
+import numpy as np
+
 import argparse
 import pickle
 import bins
@@ -25,12 +30,6 @@ def test(urls, reference_file, mode=bins.default_mode):
 
 	with open(reference_file, "rb") as f:
 		reference = pickle.load(f)
-
-	# paired = zip(test, reference)
-	# filtered = [(a,b) for a,b in paired if b != 0]
-	# test, reference = zip(*filtered)
-
-	# Fisher's exact test
 
 	if type(test) == dict:
 		assert type(reference) == dict
@@ -55,8 +54,26 @@ def test(urls, reference_file, mode=bins.default_mode):
 		test = test_l
 		reference = ref_l
 
-	v = chisquare(test, reference).statistic
+
+
+	mode = "chi"
+
+	if mode == "chi":
+		v = chisquare(test, reference).statistic
+	elif mode == "g":
+		v = gtest(test, reference)[0]
+	elif mode == "kl":
+		v = KL_divergence(test, reference)
+	elif mode == "js":
+		v = JSD(test, reference)
+
 	return v
+
+def JSD(P, Q):
+    _P = P / norm(P, ord=1)
+    _Q = Q / norm(Q, ord=1)
+    _M = 0.5 * (_P + _Q)
+    return 0.5 * (KL_divergence(_P, _M) + KL_divergence(_Q, _M))
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
