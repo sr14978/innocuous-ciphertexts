@@ -84,7 +84,7 @@ def init_emulator(mode=modes['CHARACTER_DISTROBUTION'], reference_file=None, mes
 
 		import emulate_char, emulate_length, conf
 		# base = number of distrobution divisions
-		base = conf.divisions
+		base = 15
 		encode,decode = emulate_char.init_emulator(bins, base, message_length)
 
 		with open(dir_path + "/1000/adversary/reference_length_bins", "rb") as f:
